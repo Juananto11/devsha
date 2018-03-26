@@ -5,11 +5,11 @@
 |   +-global
 |     | Header
 |     | Lateral
-|     | Notification
 |     | Messages
+|     | Notification
 |   +-views
-|     | Login-logout
 |     | Home
+|     | Login-logout
 |     | Profile
 |     +-home-components
 |       | Card
@@ -19,3 +19,7 @@
 |     +-profile-components
 |       | Change-values
 |       | Settings
+| +-router
+| | index.js
+| +-store
+| | index.js
