@@ -1,5 +1,5 @@
 <template lang="pug">
-  .Home
+  .Home Home
 </template>
 
 <script>
