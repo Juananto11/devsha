@@ -1,5 +1,7 @@
 <template lang="pug">
-  .Header
+  .Header.w-100
+    div.logo
+      img(src='./../../assets/images/ds-logo.svg')
 </template>
 
 <script>
