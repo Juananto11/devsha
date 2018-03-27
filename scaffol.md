@@ -22,4 +22,8 @@
 | +-router
 | | index.js
 | +-store
+| | actions.js
+| | getters.js
 | | index.js
+| | mutations.js
+| | state.js
