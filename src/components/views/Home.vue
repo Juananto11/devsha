@@ -1,7 +1,7 @@
 <template lang="pug">
-  .Home
-    Header
-    Lateral
+  .Home.h-100
+    Header(@visible='visible')
+    Lateral(:isVisible='isVisible')
 </template>
 
 <script>
@@ -13,6 +13,21 @@ export default {
   components: {
     Header,
     Lateral
+  },
+  data () {
+    return {
+      isVisible: true
+    }
+  },
+  methods: {
+    visible () {
+      this.isVisible = !this.isVisible
+    }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.isVisible = false
+    }, 3000)
   }
 }
 </script>
