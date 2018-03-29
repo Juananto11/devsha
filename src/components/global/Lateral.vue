@@ -1,45 +1,45 @@
 <template lang="pug">
-  .Lateral.p-3(:class='{"lateral-toggle": !isVisible}')
+  .Lateral.p-3(:class='{"lateral-toggle": !toggleMenu}')
     nav.main-nav
       ul.list-unstyled
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .home.icon
-              .tip(v-if='!isVisible') Inicio
-            .ml-2(v-show='isVisible') Inicio
+              .tip(v-if='!toggleMenu') Inicio
+            .ml-2(v-show='toggleMenu') Inicio
         li.main-nav-item.d-flex.align-items-center
-          div(:class='{"division-icon": !isVisible}')
-          div(v-show='isVisible') Publicaciones
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+          div(:class='{"division-icon": !toggleMenu}')
+          div(v-show='toggleMenu') Publicaciones
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .images.icon
-              .tip(v-if='!isVisible') Imagenes
-            .ml-2(v-show='isVisible') Imagenes
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+              .tip(v-if='!toggleMenu') Imagenes
+            .ml-2(v-show='toggleMenu') Imagenes
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .videos.icon
-              .tip(v-if='!isVisible') Videos
-            .ml-2(v-show='isVisible') Videos
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+              .tip(v-if='!toggleMenu') Videos
+            .ml-2(v-show='toggleMenu') Videos
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .posts.icon
-              .tip(v-if='!isVisible') Posts
-            .ml-2(v-show='isVisible') Posts
+              .tip(v-if='!toggleMenu') Posts
+            .ml-2(v-show='toggleMenu') Posts
         li.main-nav-item.d-flex.align-items-center
-          div(:class='{"division-icon": !isVisible}')
-          div(v-show='isVisible') Configuración
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+          div(:class='{"division-icon": !toggleMenu}')
+          div(v-show='toggleMenu') Configuración
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .account.icon
-              .tip(v-if='!isVisible') Perfil
-            .ml-2(v-show='isVisible') Perfil
-        li.main-nav-item(:class='{"pl-4": isVisible}')
+              .tip(v-if='!toggleMenu') Perfil
+            .ml-2(v-show='toggleMenu') Perfil
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .exit.icon
-              .tip(v-if='!isVisible') Salir
-            .ml-2(v-show='isVisible') Salir
+              .tip(v-if='!toggleMenu') Salir
+            .ml-2(v-show='toggleMenu') Salir
 
-    footer(v-show='isVisible')
+    footer(v-show='toggleMenu')
       nav.social-nav
         ul.list-unstyled.d-flex.justify-content-around.m-0
           li.face
@@ -57,7 +57,7 @@ export default {
     return {
     }
   },
-  props: ['isVisible']
+  props: ['toggleMenu']
 }
 </script>
 
@@ -69,6 +69,7 @@ export default {
   position: fixed;
   z-index: 5;
   border-right: 2px solid black;
+  transition: all ease .2s;
 }
 .lateral-toggle {
   width: 60px;

@@ -1,33 +1,26 @@
 <template lang="pug">
   .Header.w-100.d-flex.align-items-center.justify-content-between.px-4.fixed-top
+    .cover
     .d-flex.h-100
       .logo.h-100.d-inline-flex.align-items-center.justify-content-center
         img.logo-img(src='./../../assets/images/ds-logo.svg')
         h1.m-0 devsha
         .borde
       .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='visible')
-        span.icon-menu.d-block.rounded
+        span.icon-menu-dots.d-block.rounded(:class='{"large": !toggleMenu}')
         .borde
       .search.h-100.d-flex.justify-content-center.align-items-center
         label.search-icon.m-0
         input.search-input.border-0.p-2(type='text' placeholder="Buscar")
         .borde
     .d-flex.h-100
-      .messages.h-100.d-flex.align-items-center.justify-content-center
-        span.messages-icon
-        .borde
-        Messages
-      .notification.h-100.d-flex.align-items-center.justify-content-center
-        .notification-icon
-          .User.h-100.d-flex.align-items-center.justify-content-center
-        .borde
-        Notifications
-      .user.d-flex.align-items-center.justify-content-center
-        img.user-image
-        p.user-name.m-0.px-3 Juananto11
-        span.user-icon
-        .borde
-        User
+      Messages.messages(:showMessages='showMessages' @visibleMessages='visibleMessages')
+        .borde(slot="borde")
+      Notifications.notifications(:showNotifications='showNotifications' @visibleNotifications='visibleNotifications')
+        .borde(slot="borde")
+      User.user(:showUser='showUser' @visibleUser='visibleUser')
+        .borde(slot="borde")
+
 </template>
 
 <script>
@@ -44,9 +37,24 @@ export default {
   methods: {
     visible () {
       this.$emit('visible')
+    },
+    visibleMessages () {
+      this.$emit('visibleMessages')
+    },
+    visibleNotifications () {
+      this.$emit('visibleNotifications')
+    },
+    visibleUser () {
+      this.$emit('visibleUser')
     }
   },
-  name: 'Header'
+  name: 'Header',
+  props: [
+    'toggleMenu',
+    'showMessages',
+    'showNotifications',
+    'showUser'
+  ]
 }
 </script>
 
@@ -54,6 +62,12 @@ export default {
 .Header {
   height: 60px;
   box-shadow: 1px 1px 5px rgba($color: #000, $alpha: .5);
+}
+.cover {
+  background-color: rgba(0, 0, 0, 0.432);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .logo {
   &-img {
@@ -74,12 +88,17 @@ export default {
 }
 .toggle-lateral-bar {
   width: 60px;
-  .icon-menu {
+  .icon-menu-dots {
     background-color: #000;
     width: 5px;
     height: 5px;
     box-shadow: 0 10px 0 #000,
                 0 -10px 0 #000;
+    transition: width ease .2s;
+  }
+  .large {
+    width: 22px;
+    height: 3px;
   }
 }
 .search {
@@ -94,40 +113,11 @@ export default {
     outline: none;
   }
 }
-.messages {
-  min-width: 60px;
-  &-icon {
-    &::before {
-      content: '\e0c9';
-    }
-  }
-}
-.notification {
-  min-width: 60px;
-  &-icon {
-    &::before {
-      content: '\e7f5';
-    }
-  }
-}
-.user {
-  &-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: 1px solid #0f0;
-  }
-  &-icon {
-    &::before {
-      content: '\e313';
-    }
-  }
-}
 .logo,
 .toggle-lateral-bar,
 .search,
+.notifications,
 .messages,
-.notification,
 .user {
   position: relative;
   &-icon{

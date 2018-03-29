@@ -1,7 +1,16 @@
 <template lang="pug">
-  .Home.h-100
-    Header(@visible='visible')
-    Lateral(:isVisible='isVisible')
+  .Home.h-100(@click='showFalse')
+    Header(
+      :toggleMenu='toggleMenu'
+      :showMessages='showMessages'
+      :showNotifications='showNotifications'
+      :showUser='showUser'
+      @visible='visible'
+      @visibleMessages='visibleMessages'
+      @visibleNotifications='visibleNotifications'
+      @visibleUser='visibleUser'
+      )
+    Lateral(:toggleMenu='toggleMenu')
 </template>
 
 <script>
@@ -16,17 +25,38 @@ export default {
   },
   data () {
     return {
-      isVisible: true
+      toggleMenu: true,
+      showMessages: false,
+      showNotifications: false,
+      showUser: false
     }
   },
   methods: {
     visible () {
-      this.isVisible = !this.isVisible
+      this.toggleMenu = !this.toggleMenu
+    },
+    visibleMessages () {
+      this.showMessages = !this.showMessages
+      this.showNotifications = false
+      this.showUser = false
+    },
+    visibleNotifications () {
+      this.showMessages = false
+      this.showNotifications = !this.showNotifications
+      this.showUser = false
+    },
+    visibleUser () {
+      this.showMessages = false
+      this.showNotifications = false
+      this.showUser = !this.showUser
+    },
+    showFalse () {
+
     }
   },
   mounted () {
     setTimeout(() => {
-      this.isVisible = false
+      this.toggleMenu = false
     }, 3000)
   }
 }

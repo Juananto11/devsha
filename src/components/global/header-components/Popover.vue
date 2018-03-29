@@ -1,7 +1,9 @@
 <template lang="pug">
-  .Popover.p-2
-    p.pl-5.m-0.border: slot(name='title')
-    div: slot(name='body')
+  .Popover
+    p.m-0.py-1.font-weight-bold: slot(name='title')
+    hr.m-0
+    .pop-body.pt-1.pl-3.pr-0
+      div: slot(name='body')
 
 </template>
 
@@ -13,11 +15,9 @@ export default {
 
 <style lang="scss" scoped>
 .Popover {
-  width: 300px;
-  min-height: 100px;
-  background-color: rgba(255, 0, 0, 0.459);
-  position: absolute;
-  top: 75px;
+  background-color: rgba(0, 17, 255, 0.24);
+  position: relative;
+  top: 0;
   right: 0;
   border-radius: 10px;
   box-shadow: 3px 3px 5px rgba($color: #000, $alpha: .5);
@@ -25,13 +25,13 @@ export default {
     content: '';
     display: block;
     position: absolute;
+    width: 22px;
     top: -24px;
+    right: 18px;
     border-top: 12px solid transparent;
     border-left: 10px solid transparent;
-    right: 20px;
-    border-bottom: 12px solid rgba(255, 0, 0, 0.459);
+    border-bottom: 12px solid rgba(0, 17, 255, 0.24);
     border-right: 10px solid transparent;
   }
 }
-
 </style>
