@@ -2,28 +2,42 @@
   .Lateral.p-3(:class='{"lateral-toggle": !isVisible}')
     nav.main-nav
       ul.list-unstyled
-        li(:class='{"ml-4": isVisible}')
-          router-link.d-flex.align-items-center.home(to='/')
-            span.ml-2(v-show='isVisible') Inicio
-        li.d-flex.align-items-center(:class='{"division-icon": !isVisible}', to='/', tag='li')
-          span(v-show='isVisible') Publicaciones
-        li(:class='{"ml-4": isVisible}')
-          router-link.images.d-flex.align-items-center(to='/')
-            span.ml-2(v-show='isVisible') Imagenes
-        li(:class='{"ml-4": isVisible}')
-          router-link.videos.d-flex.align-items-center(to='/')
-            span.ml-2(v-show='isVisible') Videos
-        li(:class='{"ml-4": isVisible}')
-          router-link.posts.d-flex.align-items-center(to='/')
-            span.ml-2(v-show='isVisible') Posts
-        li.d-flex.align-items-center(:class='{"division-icon": !isVisible}', to='/' tag='li')
-          span(v-show='isVisible') Configuración
-        li(:class='{"ml-4": isVisible}')
-          router-link.account.d-flex.align-items-center(to='/')
-            span.ml-2(v-show='isVisible') Perfil
-        li(:class='{"ml-4": isVisible}')
-          router-link.exit.d-flex.align-items-center(to='/')
-            span.ml-2(v-show='isVisible') Salir
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .home.icon
+              .tip(v-if='!isVisible') Inicio
+            .ml-2(v-show='isVisible') Inicio
+        li.main-nav-item.d-flex.align-items-center
+          div(:class='{"division-icon": !isVisible}')
+          div(v-show='isVisible') Publicaciones
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .images.icon
+              .tip(v-if='!isVisible') Imagenes
+            .ml-2(v-show='isVisible') Imagenes
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .videos.icon
+              .tip(v-if='!isVisible') Videos
+            .ml-2(v-show='isVisible') Videos
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .posts.icon
+              .tip(v-if='!isVisible') Posts
+            .ml-2(v-show='isVisible') Posts
+        li.main-nav-item.d-flex.align-items-center
+          div(:class='{"division-icon": !isVisible}')
+          div(v-show='isVisible') Configuración
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .account.icon
+              .tip(v-if='!isVisible') Perfil
+            .ml-2(v-show='isVisible') Perfil
+        li.main-nav-item(:class='{"pl-4": isVisible}')
+          router-link.d-flex.align-items-center(to='/')
+            .exit.icon
+              .tip(v-if='!isVisible') Salir
+            .ml-2(v-show='isVisible') Salir
 
     footer(v-show='isVisible')
       nav.social-nav
@@ -61,16 +75,51 @@ export default {
 }
 .main-nav {
   height: calc(100% - 55px);
-  li, a {
+  &-item {
     height: 2.5em;
-    &::before {
-      font-size: 1.5em;
-      color: #35495e;
+    a {
+      text-decoration: none;
+      height: 2.5em;
     }
   }
   .division-icon::before {
     content: '\e15b';
+    font-family: 'icons';
+    font-size: 1.5em;
     color: #42b883;
+  }
+}
+.icon {
+  color: #35495e;
+  font-family: 'icons';
+  font-size: 1.5em;
+  position: relative;
+  &:hover .tip {
+    display: block;
+    opacity: .8;
+  }
+}
+.tip {
+  position: absolute;
+  display: none;
+  color: white;
+  top: 25%;
+  left: 170%;
+  background-color: #000;
+  padding: 0 .5rem .2rem;
+  border-radius: 5px;
+  font-size: .8rem;
+  opacity: 0;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1px;
+    border-top: 10px solid transparent;
+    border-left: 12px solid transparent;
+    left: -22px;
+    border-bottom: 10.2px solid transparent;
+    border-right: 12px solid black;
   }
 }
 .home::before {
@@ -90,6 +139,9 @@ export default {
 }
 .exit::before {
   content: '\e8ac';
+}
+.social-nav li::before {
+    font-family: 'icons';
 }
 .face::before {
   content: '\e900';
