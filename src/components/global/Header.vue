@@ -6,7 +6,7 @@
         h1.m-0 devsha
         .borde
       .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='visible')
-        span.icon-menu.d-block.rounded
+        span.icon-menu-dots.d-block.rounded(:class='{"large": !isVisible}')
         .borde
       .search.h-100.d-flex.justify-content-center.align-items-center
         label.search-icon.m-0
@@ -15,19 +15,22 @@
     .d-flex.h-100
       .messages.h-100.d-flex.align-items-center.justify-content-center
         span.messages-icon
-        .borde
-        Messages
+        //- .borde
+        .pop.pop-messages.d-flex.justify-content-center
+          Messages
       .notification.h-100.d-flex.align-items-center.justify-content-center
         .notification-icon
           .User.h-100.d-flex.align-items-center.justify-content-center
-        .borde
-        Notifications
+        //- .borde
+        .pop.pop-notifications.d-flex.justify-content-center
+          Notifications
       .user.d-flex.align-items-center.justify-content-center
         img.user-image
-        p.user-name.m-0.px-3 Juananto11
+        p.user-name.m-0.px-3 USUARIO
         span.user-icon
-        .borde
-        User
+        //- .borde
+        .pop.pop-user.d-flex.justify-content-center
+          User
 </template>
 
 <script>
@@ -46,7 +49,8 @@ export default {
       this.$emit('visible')
     }
   },
-  name: 'Header'
+  name: 'Header',
+  props: ['isVisible']
 }
 </script>
 
@@ -74,12 +78,16 @@ export default {
 }
 .toggle-lateral-bar {
   width: 60px;
-  .icon-menu {
+  .icon-menu-dots {
     background-color: #000;
     width: 5px;
     height: 5px;
     box-shadow: 0 10px 0 #000,
                 0 -10px 0 #000;
+    transition: width ease .2s;
+  }
+  .large {
+    width: 22px;
   }
 }
 .search {
@@ -95,6 +103,7 @@ export default {
   }
 }
 .messages {
+  position: relative;
   min-width: 60px;
   &-icon {
     &::before {
@@ -103,6 +112,7 @@ export default {
   }
 }
 .notification {
+  position: relative;
   min-width: 60px;
   &-icon {
     &::before {
@@ -111,6 +121,8 @@ export default {
   }
 }
 .user {
+  transition: all ease .5s;
+  position: relative;
   &-image {
     width: 40px;
     height: 40px;
@@ -121,6 +133,15 @@ export default {
     &::before {
       content: '\e313';
     }
+  }
+  &:hover .pop {
+    height: 130px;
+  }
+}
+.messages,
+.notification {
+  &:hover .pop {
+    height: 320px;
   }
 }
 .logo,
@@ -139,5 +160,21 @@ export default {
   &:hover .borde {
       width: 100%;
   }
+}
+.pop {
+  background-color: transparent;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  height: 0;
+  overflow: hidden;
+  transition: all ease .5s;
+}
+.pop-user {
+  width: 190px;
+}
+.pop-messages,
+.pop-notifications {
+  width: 360px;
 }
 </style>

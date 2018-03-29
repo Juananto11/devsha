@@ -5,8 +5,11 @@
 |   +-global
 |     | Header
 |     | Lateral
-|     | Messages
-|     | Notification
+|     +-header-components
+|       | Messages
+|       | Notification
+|       | Popover
+|       | Uses
 |   +-views
 |     | Home
 |     | Login-logout

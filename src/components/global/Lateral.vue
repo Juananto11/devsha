@@ -69,6 +69,7 @@ export default {
   position: fixed;
   z-index: 5;
   border-right: 2px solid black;
+  transition: all ease .2s;
 }
 .lateral-toggle {
   width: 60px;

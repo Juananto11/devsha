@@ -1,6 +1,6 @@
 <template lang="pug">
   .Home.h-100
-    Header(@visible='visible')
+    Header(:isVisible='isVisible' @visible='visible')
     Lateral(:isVisible='isVisible')
 </template>
 
