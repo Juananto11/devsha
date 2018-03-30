@@ -130,4 +130,20 @@ export default {
       width: 100%;
   }
 }
+.pop {
+  background-color: transparent;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  height: 0;
+  overflow: hidden;
+  transition: all ease .5s;
+}
+.pop-user {
+  width: 190px;
+}
+.pop-messages,
+.pop-notifications {
+  width: 360px;
+}
 </style>
