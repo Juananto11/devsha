@@ -17,7 +17,6 @@
             signup.signup
           .container-fluid.w-100.h-100(v-if="showRecovery")
             recovery.recovery
-
 </template>
 
 <script>
