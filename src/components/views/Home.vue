@@ -1,4 +1,5 @@
 <template lang="pug">
+<<<<<<< HEAD
   .Home.h-100(@click='showFalse')
     Header(
       :toggleMenu='toggleMenu'
@@ -11,6 +12,11 @@
       @visibleUser='visibleUser'
       )
     Lateral(:toggleMenu='toggleMenu')
+=======
+  .Home.h-100
+    Header(:isVisible='isVisible' @visible='visible')
+    Lateral(:isVisible='isVisible')
+>>>>>>> c0137597604f0c6b23907e333d2ec21b6f7a67f8
 </template>
 
 <script>

@@ -2,7 +2,11 @@
   .Popover
     p.m-0.py-1.font-weight-bold: slot(name='title')
     hr.m-0
+<<<<<<< HEAD
     .pop-body.pt-1.pl-3.pr-0
+=======
+    .pop-body.pt-1.px-3
+>>>>>>> c0137597604f0c6b23907e333d2ec21b6f7a67f8
       div: slot(name='body')
 
 </template>
