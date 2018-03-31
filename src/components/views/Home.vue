@@ -1,5 +1,5 @@
 <template lang="pug">
-  .Home.h-100(@click='showFalse')
+  .Home.h-100(:class='{"home": toggleMenu}')
     Header(
       :toggleMenu='toggleMenu'
       :showMessages='showMessages'
@@ -9,19 +9,29 @@
       @visibleMessages='visibleMessages'
       @visibleNotifications='visibleNotifications'
       @visibleUser='visibleUser'
-      )
-    Lateral(:toggleMenu='toggleMenu')
+      @dontShow='dontShow'
+    )
+    Lateral(
+      :toggleMenu='toggleMenu',
+      @dontShow='dontShow'
+    )
+    Card(:toggleMenu='toggleMenu')
+    Card(:toggleMenu='toggleMenu')
+    Card(:toggleMenu='toggleMenu')
+    Card(:toggleMenu='toggleMenu')
 </template>
 
 <script>
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
+import Card from './home-components/Card'
 
 export default {
   name: 'Home',
   components: {
     Header,
-    Lateral
+    Lateral,
+    Card
   },
   data () {
     return {
@@ -50,18 +60,25 @@ export default {
       this.showNotifications = false
       this.showUser = !this.showUser
     },
-    showFalse () {
-
+    dontShow () {
+      this.showMessages = false
+      this.showNotifications = false
+      this.showUser = false
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.toggleMenu = false
-    }, 3000)
+    // setTimeout(() => {
+    //   this.toggleMenu = false
+    // }, 3000)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.Home {
+  padding: 80px 0 0 100px;
+}
+.home {
+  padding: 80px 0 0 220px;
+}
 </style>

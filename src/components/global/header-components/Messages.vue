@@ -64,7 +64,7 @@ export default {
   position: absolute;
   width: 370px;
   height: 270px;
-  right: 0;
+  right: -10px;
   top: 60px;
   overflow: hidden;
 }

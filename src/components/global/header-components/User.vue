@@ -2,7 +2,7 @@
   .User.d-flex.align-items-center.justify-content-center(@click='visibleUser')
     img.User-image
     p.User-name.m-0.px-3 USUARIO
-    span.User-icon
+    span.User-icon.mr-2(:class='{"User-icon-down": !showUser, "User-icon-up": showUser}')
     slot(name='borde')
     .invisible-popover(v-if='showUser')
       Popover.pop-user
@@ -28,6 +28,7 @@ export default {
   methods: {
     visibleUser () {
       this.$emit('visibleUser')
+      console.log(this.visibleUser)
     }
   },
   name: 'User',
@@ -45,12 +46,16 @@ export default {
   }
   &-icon {
     &::before {
-      content: '\e313';
       font-size: 1.5em;
       font-family: 'icons';
     }
+    &-down::before {
+      content: '\e313';
+    }
+    &-up::before {
+      content: '\e316';
+    }
   }
-
 }
 .visible-popover {
   height: 0px;

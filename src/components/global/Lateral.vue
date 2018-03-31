@@ -1,5 +1,8 @@
 <template lang="pug">
-  .Lateral.p-3(:class='{"lateral-toggle": !toggleMenu}')
+  .Lateral.p-3(
+    :class='{"lateral-toggle": !toggleMenu}'
+    @click='dontShow'
+    )
     nav.main-nav
       ul.list-unstyled
         li.main-nav-item(:class='{"pl-4": toggleMenu}')
@@ -57,6 +60,11 @@ export default {
     return {
     }
   },
+  methods: {
+    dontShow () {
+      this.$emit('dontShow')
+    }
+  },
   props: ['toggleMenu']
 }
 </script>
@@ -65,11 +73,11 @@ export default {
 .Lateral {
   width: 180px;
   height: calc(100vh - 60px);
-  margin-top: 60px;
   position: fixed;
+  top: 60px;
+  left: 0;
   z-index: 5;
   border-right: 2px solid black;
-  transition: all ease .2s;
 }
 .lateral-toggle {
   width: 60px;
@@ -107,6 +115,7 @@ export default {
   top: 25%;
   left: 170%;
   background-color: #000;
+  z-index: 10;
   padding: 0 .5rem .2rem;
   border-radius: 5px;
   font-size: .8rem;

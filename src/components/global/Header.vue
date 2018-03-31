@@ -1,17 +1,16 @@
 <template lang="pug">
-  .Header.w-100.d-flex.align-items-center.justify-content-between.px-4.fixed-top
-    .cover
-    .d-flex.h-100
-      .logo.h-100.d-inline-flex.align-items-center.justify-content-center
+  .Header.w-100.d-flex.align-items-center.justify-content-between.fixed-top
+    .d-flex.h-100.w-75(@click='dontShow')
+      .logo.h-100.px-3.d-inline-flex.align-items-center.justify-content-center
         img.logo-img(src='./../../assets/images/ds-logo.svg')
         h1.m-0 devsha
         .borde
       .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='visible')
         span.icon-menu-dots.d-block.rounded(:class='{"large": !toggleMenu}')
         .borde
-      .search.h-100.d-flex.justify-content-center.align-items-center
+      .search.h-100.w-100.d-flex.justify-content-center.align-items-center
         label.search-icon.m-0
-        input.search-input.border-0.p-2(type='text' placeholder="Buscar")
+        input.search-input.border-0.p-2.w-100(type='text' placeholder="Buscar")
         .borde
     .d-flex.h-100
       Messages.messages(:showMessages='showMessages' @visibleMessages='visibleMessages')
@@ -46,6 +45,9 @@ export default {
     },
     visibleUser () {
       this.$emit('visibleUser')
+    },
+    dontShow () {
+      this.$emit('dontShow')
     }
   },
   name: 'Header',
@@ -87,7 +89,7 @@ export default {
   transition: width ease .3s;
 }
 .toggle-lateral-bar {
-  width: 60px;
+  min-width: 60px;
   .icon-menu-dots {
     background-color: #000;
     width: 5px;
@@ -98,7 +100,6 @@ export default {
   }
   .large {
     width: 22px;
-    height: 3px;
   }
 }
 .search {
