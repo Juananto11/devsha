@@ -1,4 +1,5 @@
 <template lang="pug">
+.container-form
   form.form-signup(role='form', @submit.prevent="validateForm('form-signup')", data-vv-scope="form-signup")
     .row.pt-2
       .col
@@ -36,7 +37,7 @@
             span.text-danger.align-middle(v-show="errors.has('form-signup.password')")
               small {{ errors.first('form-signup.password') }}
             .w-100.mt-3
-              input#repeatPass.form-control(type='password', name='repeatPass', v-model="repeatPass", placeholder='Repeat Password')
+              input#repeatPass.form-control(type='password', name='repeatPass', v-model="repeatPass", placeholder='Repeat Password', v-validate="'required'")
             span.text-danger.align-middle(v-show="!hideWarning")
               small Passwords do not match
 
@@ -46,7 +47,7 @@
           label.form-check-label.mt-2
             input.form-check-input(name='terms', type='checkbox', v-validate="'required'")
             span I accept&nbsp;
-              a(href='#') the terms and conditions
+          slot(name="terms") the terms and conditions
           .w-100
             span.text-danger.align-middle(v-show="errors.has('form-signup.terms')")
               small You must agree to terms and conditions
@@ -54,18 +55,27 @@
     .row.d-flex.justify-content-center.mb-3
       .col-10
         button.mt-2.btn.btn-block.btn-dark(type='submit') Create Account
+  modal(v-if="showModal")
+    h2(slot="header") Thank you!
+    button.btn.btn-dark(slot="button" @click="showModal = false") Close
+    span(slot="body")
+      p Please verify your email account before start
 </template>
 
 <script>
+import Modal from './modal-component'
 export default {
-  name: 'signup-page',
+  components: {
+    Modal
+  },
   data () {
     return {
       username: null,
       email: null,
       password: null,
       repeatPass: null,
-      terms: null
+      terms: null,
+      showModal: null
     }
   },
   methods: {
@@ -77,8 +87,10 @@ export default {
         this.password = ''
         this.repeatPass = ''
         if (result) {
-          console.log(result)
-          // this.$router.push('/home')
+          this.username = ''
+          this.email = ''
+          this.terms = false
+          this.showModal = true
         }
       })
     }
