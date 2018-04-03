@@ -15,23 +15,24 @@
       :toggleMenu='toggleMenu',
       @dontShow='dontShow'
     )
-    Card(:toggleMenu='toggleMenu')
-    Card(:toggleMenu='toggleMenu')
-    Card(:toggleMenu='toggleMenu')
-    Card(:toggleMenu='toggleMenu')
+    Posts(:toggleMenu='toggleMenu')
+    Chat
+      span(name='title')
 </template>
 
 <script>
+import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
-import Card from './home-components/Card'
+import Posts from './home-components/Posts'
 
 export default {
   name: 'Home',
   components: {
+    Chat,
     Header,
     Lateral,
-    Card
+    Posts
   },
   data () {
     return {
@@ -76,9 +77,9 @@ export default {
 
 <style lang="scss" scoped>
 .Home {
-  padding: 80px 0 0 100px;
+  padding: 80px 20px 0 100px;
 }
 .home {
-  padding: 80px 0 0 220px;
+  padding: 80px 20px 0 220px;
 }
 </style>

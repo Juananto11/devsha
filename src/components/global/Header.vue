@@ -8,7 +8,7 @@
       .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='visible')
         span.icon-menu-dots.d-block.rounded(:class='{"large": !toggleMenu}')
         .borde
-      .search.h-100.w-100.d-flex.justify-content-center.align-items-center
+      .search.h-100.w-50.d-flex.justify-content-center.align-items-center
         label.search-icon.m-0
         input.search-input.border-0.p-2.w-100(type='text' placeholder="Buscar")
         .borde

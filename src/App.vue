@@ -30,7 +30,4 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-.App {
-  height: 2000px;
-}
 </style>
