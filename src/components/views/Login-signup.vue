@@ -4,28 +4,28 @@
       .row.w-100.m-0.d-flex.align-items-center
         .container-img.p-0.col-3.col-md-2.col-lg-1.ml-lg-5
           img.logo.w-100(src="../../assets/images/logo.png", alt="Logo devsha")
-        h1.text-center.m-0.col-6.col-sm-8.col-lg-9 Welcome&nbsp;
-          span.d-none.d-md-inline-block to devsha
+        h1.text-center.m-0.col-6.col-sm-8.col-lg-9 Bienvenido&nbsp;
+          span.d-none.d-md-inline-block a devsha
     .row.w-100.m-0.p-0.d-flex.justify-content-center.pt-3
       .w-100.h-100.col-12.col-md-7.col-lg-5.col-xl-4
         .container-nav
           ul.nav.nav-tabs
             li.nav-item.w-50
-              span#login.nav-link.active(v-on:click="changeForm('login')") Login
+              span#login.nav-link.inactive(v-on:click="changeForm('login')", :class="{active: showLogin}") Iniciar Sesión
             li.nav-item.w-50
-              span#signup.nav-link.inactive(v-on:click="changeForm('signup')") Signup
+              span#signup.nav-link.inactive(v-on:click="changeForm('signup')", :class="{active: showSignup}") Regístrate
           .container-fluid.w-100.h-100( v-if="showLogin")
             login.login
               span.btn.btn-link.p-0.mt-2.mb-3(v-on:click="changeForm('recovery')")
-                small Forgot Your Password?
+                small ¿Olvidaste tu contraseña?
           .container-fluid.w-100.h-100(v-if="showSignup")
             signup.signup
-              span.link-terms(slot="terms", @click="showTerms = true") The Terms and Conditions
+              span.link-terms(slot="terms", @click="showTerms = true") Los terminos y condiciones
           .container-fluid.w-100.h-100(v-if="showRecovery")
             recovery.recovery
     modal(v-if="showTerms")
-      h2(slot="header") TERM AND CONDITIONS
-      button.btn.btn-dark(slot="button" @click="showTerms = false") Close
+      h2(slot="header") TÉRMINOS Y CONDICIONES
+      button.btn.btn-dark(slot="button" @click="showTerms = false") Cerrar
       span(slot="body")
         p {{ termsCond.p1 }}
         p {{ termsCond.p2 }}
@@ -62,22 +62,16 @@ export default {
     changeForm (param) {
       switch (param) {
         case 'login':
-          document.querySelector('#login').className = 'nav-link active'
-          document.querySelector('#signup').className = 'nav-link inactive'
           this.showLogin = true
           this.showSignup = false
           this.showRecovery = false
           break
         case 'signup':
-          document.querySelector('#login').className = 'nav-link inactive'
-          document.querySelector('#signup').className = 'nav-link active'
           this.showLogin = false
           this.showSignup = true
           this.showRecovery = false
           break
         case 'recovery':
-          document.querySelector('#login').className = 'nav-link inactive'
-          document.querySelector('#signup').className = 'nav-link inactive'
           this.showLogin = false
           this.showSignup = false
           this.showRecovery = true

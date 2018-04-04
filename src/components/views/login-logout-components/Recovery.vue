@@ -4,7 +4,7 @@
       .row.pt-4
         .col
           .form-group.has-danger
-            label.pt-2.pb-2(for='email') Enter your E-Mail
+            label.pt-2.pb-2(for='email') Introduce tu correo electrónico
             .input-group.mb-2.mt-1
               input#email.form-control(type='email', name='email', placeholder='you@example.com', v-validate="'required|email'", v-model="email", autofocus='')
           .form-control-feedback
@@ -12,11 +12,11 @@
               small {{ errors.first('form-recovery.email') }}
       .row.d-flex.justify-content-center.mt-3.mb-5
         .col-10
-          button.mt-2.btn.btn-block.btn-dark(type='submit') Submit
+          button.mt-2.btn.btn-block.btn-dark(type='submit') Enviar
     modal(v-if="showModal" )
-      h2(slot="header") Thank you!
-      button.btn.btn-dark(slot="button" @click="showModal = false") Close
-      h4(slot="body") Please check your email.
+      h2(slot="header") ¡Gracias!
+      button.btn.btn-dark(slot="button" @click="showModal = false") Cerrar
+      h4(slot="body") Por favor revise su correo electrónico.
 </template>
 
 <script>

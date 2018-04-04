@@ -14,7 +14,7 @@
     .row
       .col
         .form-group
-          label.mt-2(for='password') Password
+          label.mt-2(for='password') Contraseña
           .input-group.mb-2.mt-1
             .input-group-addon
               i
@@ -27,10 +27,10 @@
         .form-check.mb-2
           label.form-check-label.mt-2
             input.form-check-input(name='remember', type='checkbox')
-            span Remember me
+            span Recuérdame
     .row.d-flex.justify-content-center
       .col-10
-        button.mt-2.btn.btn-block.btn-dark(type='submit') Login
+        button.mt-2.btn.btn-block.btn-dark(type='submit') Iniciar sesión
       slot
 </template>
 
