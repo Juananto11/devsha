@@ -1,4 +1,5 @@
 <template lang="pug">
+.container-fluid.w-100.h-100
   form.form-login(role='form', @submit.prevent="validateForm('form-login')", data-vv-scope="form-login")
     .row.pt-4
       .col
@@ -31,7 +32,9 @@
     .row.d-flex.justify-content-center
       .col-10
         button.mt-2.btn.btn-block.btn-dark(type='submit') Iniciar sesión
-      slot
+      router-link(to="/recovery")
+        span.btn.btn-link.p-0.mt-2.mb-3
+          small ¿Olvidaste tu contraseña?
 </template>
 
 <script>
@@ -56,3 +59,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container-fluid {
+  border-right: 1px solid rgb(231, 231, 231);
+  border-left: 1px solid rgb(231, 231, 231);
+  border-bottom: 1px solid rgb(231, 231, 231);
+  width: 400px;
+
+  a {
+    background-color: #eee;
+  }
+}
+</style>

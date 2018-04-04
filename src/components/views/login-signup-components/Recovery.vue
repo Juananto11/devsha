@@ -1,4 +1,5 @@
 <template lang="pug">
+.container-fluid.w-100.h-100
   .container-recovery
     form.form-recovery(role='form', @submit.prevent="validateForm('form-recovery')", data-vv-scope="form-recovery")
       .row.pt-4
@@ -44,3 +45,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container-fluid {
+  border-right: 1px solid rgb(231, 231, 231);
+  border-left: 1px solid rgb(231, 231, 231);
+  border-bottom: 1px solid rgb(231, 231, 231);
+  width: 400px;
+}
+</style>

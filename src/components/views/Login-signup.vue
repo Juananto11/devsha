@@ -11,115 +11,57 @@
         .container-nav
           ul.nav.nav-tabs
             li.nav-item.w-50
-              span#login.nav-link.inactive(v-on:click="changeForm('login')", :class="{active: showLogin}") Iniciar Sesión
+              router-link(to="/login")
+                span.nav-link(:class="{active: toggleClassLogin}", @click="toggleClassL") Iniciar Sesión
             li.nav-item.w-50
-              span#signup.nav-link.inactive(v-on:click="changeForm('signup')", :class="{active: showSignup}") Regístrate
-          .container-fluid.w-100.h-100( v-if="showLogin")
-            login.login
-              span.btn.btn-link.p-0.mt-2.mb-3(v-on:click="changeForm('recovery')")
-                small ¿Olvidaste tu contraseña?
-          .container-fluid.w-100.h-100(v-if="showSignup")
-            signup.signup
-              span.link-terms(slot="terms", @click="showTerms = true") Los terminos y condiciones
-          .container-fluid.w-100.h-100(v-if="showRecovery")
-            recovery.recovery
-    modal(v-if="showTerms")
-      h2(slot="header") TÉRMINOS Y CONDICIONES
-      button.btn.btn-dark(slot="button" @click="showTerms = false") Cerrar
-      span(slot="body")
-        p {{ termsCond.p1 }}
-        p {{ termsCond.p2 }}
-        p {{ termsCond.p3 }}
-        p {{ termsCond.p4 }}
-        p {{ termsCond.p5 }}
+              router-link(to="/signup")
+                span.nav-link(@click="toggleClassS", :class="{active: toggleClassSignup}") Regístrate
+          router-view
 </template>
 
 <script>
-import Login from './login-logout-components/Login'
-import Signup from './login-logout-components/Signup'
-import Recovery from './login-logout-components/Recovery'
-import Modal from './login-logout-components/modal-component'
-import termsCond from '../../terms/terms-conditions'
-
 export default {
   name: 'login-signup',
-  components: {
-    Login,
-    Signup,
-    Recovery,
-    Modal
-  },
   data () {
     return {
-      termsCond,
-      showLogin: true,
-      showSignup: false,
-      showRecovery: false,
-      showTerms: false
+      toggleClassLogin: true,
+      toggleClassSignup: false
     }
   },
   methods: {
-    changeForm (param) {
-      switch (param) {
-        case 'login':
-          this.showLogin = true
-          this.showSignup = false
-          this.showRecovery = false
-          break
-        case 'signup':
-          this.showLogin = false
-          this.showSignup = true
-          this.showRecovery = false
-          break
-        case 'recovery':
-          this.showLogin = false
-          this.showSignup = false
-          this.showRecovery = true
-          break
-      }
+    toggleClassL () {
+      this.toggleClassLogin = true
+      this.toggleClassSignup = false
+    },
+    toggleClassS () {
+      this.toggleClassLogin = false
+      this.toggleClassSignup = true
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.appear-enter-active,
-.appear-leave-active {
-  transition: opacity 2s;
-}
-.appear-enter,
-.appear-leave-to {
-  opacity: 0;
-}
 .container {
   height: 100vh;
   width: 100vw;
-  .container-nav {
+  &-nav {
     background-color: #eeeeee;
     box-shadow: 0px 15px 36px -9px rgba(0, 0, 0, 1);
-    .inactive {
-      background-color: #fff;
-      cursor: pointer;
-    }
-    .active {
-      font-weight: bold;
-      background-color: #eeeeee;
-      cursor: pointer;
-    }
-    .container-fluid {
-      border-right: 1px solid rgb(231, 231, 231);
-      border-left: 1px solid rgb(231, 231, 231);
-      border-bottom: 1px solid rgb(231, 231, 231);
-      width: 400px;
-      .link-terms {
-        color: #006fd4;
-        cursor: pointer;
-      }
-      .link-terms:hover {
-        color: #0055a5;
-        text-decoration: underline;
-      }
-    }
   }
+}
+a:hover {
+  color: #333;
+}
+.nav-link {
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+.nav-link.active {
+  font-weight: bold;
+  color: #333;
+  background-color: #eeeeee;
+  cursor: pointer;
 }
 </style>

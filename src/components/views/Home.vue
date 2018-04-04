@@ -5,11 +5,9 @@
 </template>
 
 <script>
-import Chat from './Chat'
 export default {
   name: 'Home',
   components: {
-    Chat
   }
 }
 </script>
