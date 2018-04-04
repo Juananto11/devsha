@@ -9,30 +9,30 @@
       @visibleMessages='visibleMessages'
       @visibleNotifications='visibleNotifications'
       @visibleUser='visibleUser'
-      @dontShow='dontShow'
+      @dontShowPopovers='dontShowPopovers'
     )
     Lateral(
       :toggleMenu='toggleMenu',
-      @dontShow='dontShow'
+      @dontShowPopovers='dontShowPopovers'
     )
-    Posts(:toggleMenu='toggleMenu')
-    Chat
-      span(name='title')
+    router-view(
+      :toggleMenu='toggleMenu',
+      @dontShowPopovers='dontShowPopovers'
+    )
+    Chat(@dontShowPopovers='dontShowPopovers')
 </template>
 
 <script>
 import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
-import Posts from './home-components/Posts'
 
 export default {
   name: 'Home',
   components: {
     Chat,
     Header,
-    Lateral,
-    Posts
+    Lateral
   },
   data () {
     return {
@@ -61,25 +61,20 @@ export default {
       this.showNotifications = false
       this.showUser = !this.showUser
     },
-    dontShow () {
+    dontShowPopovers () {
       this.showMessages = false
       this.showNotifications = false
       this.showUser = false
     }
-  },
-  mounted () {
-    // setTimeout(() => {
-    //   this.toggleMenu = false
-    // }, 3000)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .Home {
-  padding: 80px 20px 0 100px;
+  padding: 60px 0 0 60px;
 }
 .home {
-  padding: 80px 20px 0 220px;
+  padding: 60px 0 0 180px;
 }
 </style>

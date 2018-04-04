@@ -1,6 +1,6 @@
 <template lang="pug">
   .Header.w-100.d-flex.align-items-center.justify-content-between.fixed-top
-    .d-flex.h-100.w-75(@click='dontShow')
+    .d-flex.h-100.w-75(@click='dontShowPopovers')
       .logo.h-100.px-3.d-inline-flex.align-items-center.justify-content-center
         img.logo-img(src='./../../assets/images/ds-logo.svg')
         h1.m-0 devsha
@@ -46,8 +46,8 @@ export default {
     visibleUser () {
       this.$emit('visibleUser')
     },
-    dontShow () {
-      this.$emit('dontShow')
+    dontShowPopovers () {
+      this.$emit('dontShowPopovers')
     }
   },
   name: 'Header',

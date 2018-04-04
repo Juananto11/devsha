@@ -30,7 +30,7 @@ export default {
   margin-left: 40px;
   width: 450px;
   border-radius: 10px;
-  background-color: rgb(155, 39, 39);
+  box-shadow: 3px 3px 5px rgba($color: #000, $alpha: .5);
   position: fixed;
   left: 820px;
 }

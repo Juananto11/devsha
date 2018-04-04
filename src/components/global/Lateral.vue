@@ -1,7 +1,7 @@
 <template lang="pug">
   .Lateral.p-3(
     :class='{"lateral-toggle": !toggleMenu}'
-    @click='dontShow'
+    @click='dontShowPopovers'
     )
     nav.main-nav
       ul.list-unstyled
@@ -10,6 +10,11 @@
             .home.icon
               .tip(v-if='!toggleMenu') Inicio
             .ml-2(v-show='toggleMenu') Inicio
+        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+          router-link.d-flex.align-items-center(to='/')
+            .friend.icon
+              .tip(v-if='!toggleMenu') Amigos
+            .ml-2(v-show='toggleMenu') Amigos
         li.main-nav-item.d-flex.align-items-center
           div(:class='{"division-icon": !toggleMenu}')
           div(v-show='toggleMenu') Publicaciones
@@ -32,7 +37,7 @@
           div(:class='{"division-icon": !toggleMenu}')
           div(v-show='toggleMenu') Configuración
         li.main-nav-item(:class='{"pl-4": toggleMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          router-link.d-flex.align-items-center(to='profile')
             .account.icon
               .tip(v-if='!toggleMenu') Perfil
             .ml-2(v-show='toggleMenu') Perfil
@@ -61,8 +66,8 @@ export default {
     }
   },
   methods: {
-    dontShow () {
-      this.$emit('dontShow')
+    dontShowPopovers () {
+      this.$emit('dontShowPopovers')
     }
   },
   props: ['toggleMenu']
@@ -134,6 +139,9 @@ export default {
 }
 .home::before {
   content: '\e88a';
+}
+.friend::before {
+  content: '\e7fb';
 }
 .images::before {
   content: '\e432';

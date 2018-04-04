@@ -10,10 +10,11 @@
           img.bo0rounded-circle.mr-3(src='' height='20' width='20')
           | Usuario
         ul.list-unstyled(slot='body')
-          li.d-flex.align-items-center
+          router-link.d-flex.align-items-center(to='profile')
             span.mr-3.account
             p.m-0 Ver perfil
-          li.d-flex.align-items-center
+            li.main-nav-item(:class='{"pl-4": toggleMenu}')
+          router-link.d-flex.align-items-center(to='/')
             span.mr-3.exit
             p.m-0 Cerrar Sesión
 </template>
