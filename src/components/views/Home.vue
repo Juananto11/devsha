@@ -15,9 +15,9 @@
       :toggleMenu='toggleMenu',
       @dontShowPopovers='dontShowPopovers'
     )
-    router-view(
-      :toggleMenu='toggleMenu',
+    router-view.padding(
       @dontShowPopovers='dontShowPopovers'
+      :toggleMenu='toggleMenu'
     )
     Chat(@dontShowPopovers='dontShowPopovers')
 </template>
@@ -76,5 +76,8 @@ export default {
 }
 .home {
   padding: 60px 0 0 180px;
+}
+.padding {
+  padding: 20px 20px 30px 40px
 }
 </style>
