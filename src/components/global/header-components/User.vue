@@ -13,7 +13,6 @@
           router-link.d-flex.align-items-center(to='profile')
             span.mr-3.account
             p.m-0 Ver perfil
-            li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             span.mr-3.exit
             p.m-0 Cerrar Sesión
@@ -29,7 +28,6 @@ export default {
   methods: {
     visibleUser () {
       this.$emit('visibleUser')
-      console.log(this.visibleUser)
     }
   },
   name: 'User',

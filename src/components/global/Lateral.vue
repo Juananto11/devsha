@@ -11,7 +11,7 @@
               .tip(v-if='!toggleMenu') Inicio
             .ml-2(v-show='toggleMenu') Inicio
         li.main-nav-item(:class='{"pl-4": toggleMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          router-link.d-flex.align-items-center(to='/friends')
             .friend.icon
               .tip(v-if='!toggleMenu') Amigos
             .ml-2(v-show='toggleMenu') Amigos
@@ -31,13 +31,13 @@
         li.main-nav-item(:class='{"pl-4": toggleMenu}')
           router-link.d-flex.align-items-center(to='/')
             .posts.icon
-              .tip(v-if='!toggleMenu') Posts
-            .ml-2(v-show='toggleMenu') Posts
+              .tip(v-if='!toggleMenu') Noticias
+            .ml-2(v-show='toggleMenu') Noticias
         li.main-nav-item.d-flex.align-items-center
           div(:class='{"division-icon": !toggleMenu}')
           div(v-show='toggleMenu') Configuración
         li.main-nav-item(:class='{"pl-4": toggleMenu}')
-          router-link.d-flex.align-items-center(to='profile')
+          router-link.d-flex.align-items-center(to='/profile')
             .account.icon
               .tip(v-if='!toggleMenu') Perfil
             .ml-2(v-show='toggleMenu') Perfil

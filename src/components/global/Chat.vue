@@ -159,53 +159,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Chat {
-  position: fixed;
-  width: 448px;
-  bottom: 0;
-  right: 42px;
-}
-.user-connected {
-  &-body {
-    height: 0;
-    overflow: hidden;
-    transition: height ease .2s;
-    overflow-y: scroll;
-  }
-  &-show {
-    height: 160px;
-    padding: 8px 0;
-  }
-}
-.chats-sent-body {
-  height: 0;
-  transition: height ease .2s;
-  overflow-y: hidden;
-  position: relative;
-  &-extended {
-    height: 300px;
-  }
-}
-.list-messages {
-  overflow-y: auto;
-  position: relative;
-  height: 268px;
-  &-container {
-    position: absolute;
+  .Chat {
+    position: fixed;
+    width: 448px;
     bottom: 0;
-    min-height: 0;
-    max-height: 268px;
+    right: 42px;
   }
-  &-item {
-    min-height: 1.5em;
-  }
-}
-.message{
-  &-send {
-    &::before {
-      font-family: 'icons';
-      content: '\e163';
+  .user-connected {
+    &-body {
+      height: 0;
+      overflow: hidden;
+      transition: height ease .2s;
+      overflow-y: scroll;
+    }
+    &-show {
+      height: 160px;
+      padding: 8px 0;
     }
   }
-}
+  .chats-sent-body {
+    height: 0;
+    transition: height ease .2s;
+    overflow-y: hidden;
+    position: relative;
+    &-extended {
+      height: 300px;
+    }
+  }
+  .list-messages {
+    overflow-y: auto;
+    position: relative;
+    height: 268px;
+    &-container {
+      position: absolute;
+      bottom: 0;
+      min-height: 0;
+      max-height: 268px;
+    }
+    &-item {
+      min-height: 1.5em;
+    }
+  }
+  .message{
+    &-send {
+      &::before {
+        font-family: 'icons';
+        content: '\e163';
+      }
+    }
+  }
 </style>
