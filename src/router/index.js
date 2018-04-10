@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -8,10 +8,12 @@ import Posts from './../components/views/home-layouts-components/Posts.vue'
 import Profile from './../components/views/home-layouts-components/Profile.vue'
 import ProfileFriend from './../components/views/home-layouts-components/ProfileFriend.vue'
 import Friends from './../components/views/home-layouts-components/Friends.vue'
+import LoginSignup from './../components/views/Login-signup.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -39,7 +41,24 @@ export default new Router({
         }
       ]
     },
-    { path: '/home', redirect: '/' },
-    { path: '/posts', redirect: '/' }
+    {
+      path: '/posts',
+      redirect: '/'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginSignup
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: LoginSignup
+    },
+    {
+      path: '/recovery',
+      name: 'recovery',
+      component: LoginSignup
+    }
   ]
 })

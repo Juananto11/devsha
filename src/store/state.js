@@ -2,5 +2,10 @@
 
 export default {
   isVisible: true,
-  user: {}
+  user: {
+    username: '',
+    email: '',
+    password: '',
+    remember: null
+  }
 }

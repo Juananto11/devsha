@@ -2,6 +2,8 @@
 
 import axios from 'axios'
 
+import AuthenticationService from '../services/AuthenticationService'
+
 export const registerUser = (context, payload) => {
   axios
     .post('http://localhost:4000/api/auth/register', {
@@ -16,4 +18,7 @@ export const registerUser = (context, payload) => {
     .catch(err => {
       console.log(err)
     })
+}
+export const postUser = (contex, payload) => {
+  return AuthenticationService.register(payload).then(contex.commit('NEW_USER', payload))
 }
