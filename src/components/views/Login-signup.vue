@@ -24,9 +24,12 @@ export default {
   name: 'login-signup',
   data () {
     return {
-      toggleClassLogin: true,
-      toggleClassSignup: false
+      toggleClassLogin: null,
+      toggleClassSignup: null
     }
+  },
+  computed: {
+
   },
   methods: {
     toggleClassL () {
@@ -36,7 +39,22 @@ export default {
     toggleClassS () {
       this.toggleClassLogin = false
       this.toggleClassSignup = true
+    },
+    checkUrl () {
+      switch (window.location.pathname) {
+        case '/login':
+          this.toggleClassLogin = true
+          this.toggleClassSignup = false
+          break
+        case '/signup':
+          this.toggleClassLogin = false
+          this.toggleClassSignup = true
+          break
+      }
     }
+  },
+  created () {
+    this.checkUrl()
   }
 }
 </script>

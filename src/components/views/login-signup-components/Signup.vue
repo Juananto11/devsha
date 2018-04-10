@@ -46,7 +46,7 @@
         .col
           .form-check.mb-2
             label.form-check-label.mt-2
-              input.form-check-input(name='terms', type='checkbox', v-validate="'required'")
+              input.form-check-input(name='terms', type='checkbox', v-validate="'required'", v-model="terms")
               span Acepto&nbsp;
             span.link-terms(@click="showTerms = true") Los terminos y condiciones
             .w-100
@@ -75,7 +75,6 @@
 <script>
 import Modal from './modal-component'
 import termsCond from '../../../terms/terms-conditions'
-// import { mapActions } from 'vuex'
 
 export default {
   name: 'signup',
@@ -92,13 +91,12 @@ export default {
       termsCond,
       showTerms: null,
       repeatPass: null,
-      term: false,
+      terms: false,
       showModal: null,
       result: null
     }
   },
   computed: {
-    // ...mapState(['user']),
     hideWarning () {
       if (this.newUser.password === this.repeatPass) {
         return true
@@ -115,7 +113,6 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(['postUser']),
     validateForm (scope) {
       this.$validator.validateAll(scope).then((result) => {
         this.result = result
