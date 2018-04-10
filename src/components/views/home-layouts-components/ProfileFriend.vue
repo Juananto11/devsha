@@ -15,11 +15,11 @@
         p.info-value.px-2.py-0 {{ regisry }}
     .posts-friend
       h3 Publicaciones
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
 </template>
 
 <script>
@@ -42,7 +42,7 @@ export default {
     }
   },
   name: 'ProfileFriend',
-  props: ['toggleMenu']
+  props: ['showMenu']
 }
 </script>
 

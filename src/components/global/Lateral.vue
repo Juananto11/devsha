@@ -1,53 +1,53 @@
 <template lang="pug">
   .Lateral.p-3(
-    :class='{"lateral-toggle": !toggleMenu}'
+    :class='{"lateral-toggle": !showMenu}'
     @click='dontShowPopovers'
     )
     nav.main-nav
       ul.list-unstyled
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/')
             .home.icon
-              .tip(v-if='!toggleMenu') Inicio
-            .ml-2(v-show='toggleMenu') Inicio
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+              .tip(v-if='!showMenu') Inicio
+            .ml-2(v-show='showMenu') Inicio
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/friends')
             .friend.icon
-              .tip(v-if='!toggleMenu') Amigos
-            .ml-2(v-show='toggleMenu') Amigos
+              .tip(v-if='!showMenu') Amigos
+            .ml-2(v-show='showMenu') Amigos
         li.main-nav-item.d-flex.align-items-center
-          div(:class='{"division-icon": !toggleMenu}')
-          div(v-show='toggleMenu') Publicaciones
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+          div(:class='{"division-icon": !showMenu}')
+          div(v-show='showMenu') Publicaciones
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/')
             .images.icon
-              .tip(v-if='!toggleMenu') Imagenes
-            .ml-2(v-show='toggleMenu') Imagenes
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+              .tip(v-if='!showMenu') Imagenes
+            .ml-2(v-show='showMenu') Imagenes
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/')
             .videos.icon
-              .tip(v-if='!toggleMenu') Videos
-            .ml-2(v-show='toggleMenu') Videos
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+              .tip(v-if='!showMenu') Videos
+            .ml-2(v-show='showMenu') Videos
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/')
             .posts.icon
-              .tip(v-if='!toggleMenu') Noticias
-            .ml-2(v-show='toggleMenu') Noticias
+              .tip(v-if='!showMenu') Noticias
+            .ml-2(v-show='showMenu') Noticias
         li.main-nav-item.d-flex.align-items-center
-          div(:class='{"division-icon": !toggleMenu}')
-          div(v-show='toggleMenu') Configuración
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+          div(:class='{"division-icon": !showMenu}')
+          div(v-show='showMenu') Configuración
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/profile')
             .account.icon
-              .tip(v-if='!toggleMenu') Perfil
-            .ml-2(v-show='toggleMenu') Perfil
-        li.main-nav-item(:class='{"pl-4": toggleMenu}')
+              .tip(v-if='!showMenu') Perfil
+            .ml-2(v-show='showMenu') Perfil
+        li.main-nav-item(:class='{"pl-4": showMenu}')
           router-link.d-flex.align-items-center(to='/')
             .exit.icon
-              .tip(v-if='!toggleMenu') Salir
-            .ml-2(v-show='toggleMenu') Salir
+              .tip(v-if='!showMenu') Salir
+            .ml-2(v-show='showMenu') Salir
 
-    footer(v-show='toggleMenu')
+    footer(v-show='showMenu')
       nav.social-nav
         ul.list-unstyled.d-flex.justify-content-around.m-0
           li.face
@@ -70,7 +70,7 @@ export default {
       this.$emit('dontShowPopovers')
     }
   },
-  props: ['toggleMenu']
+  props: ['showMenu']
 }
 </script>
 
@@ -150,7 +150,7 @@ export default {
   content: '\e04b';
 }
 .posts::before {
-  content: '\e254';
+  content: '\e904';
 }
 .account::before {
   content: '\e853';

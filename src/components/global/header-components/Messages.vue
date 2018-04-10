@@ -1,6 +1,6 @@
 <template lang="pug">
-  .Messages.h-100.d-flex.align-items-center.justify-content-center(@click='visibleMessages')
-    span.Messages-icon
+  .Messages.h-100.d-flex.align-items-center.justify-content-center(@click='toggleMessages')
+    .Messages-icon
     slot(name='borde')
     .invisible-popover(v-if='showMessages')
       Popover.pop-messages
@@ -36,8 +36,8 @@ export default {
     Popover
   },
   methods: {
-    visibleMessages () {
-      this.$emit('visibleMessages')
+    toggleMessages () {
+      this.$emit('toggleMessages')
     }
   },
   name: 'Messages',
@@ -48,6 +48,8 @@ export default {
 <style lang="scss" scoped>
 .Messages {
   width: 60px;
+  cursor: pointer;
+  cursor: pointer;
   &-icon {
     &::before {
       content: '\e0c9';

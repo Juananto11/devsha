@@ -1,8 +1,8 @@
 <template lang="pug">
-  .User.d-flex.align-items-center.justify-content-center(@click='visibleUser')
+  .User.d-flex.align-items-center.justify-content-center(@click='toggleUser')
     img.User-image
     p.User-name.m-0.px-3 USUARIO
-    span.User-icon.mr-2(:class='{"User-icon-down": !showUser, "User-icon-up": showUser}')
+    .User-icon.mr-2(:class='{"User-icon-down": !showUser, "User-icon-up": showUser}')
     slot(name='borde')
     .invisible-popover(v-if='showUser')
       Popover.pop-user
@@ -26,8 +26,8 @@ export default {
     Popover
   },
   methods: {
-    visibleUser () {
-      this.$emit('visibleUser')
+    toggleUser () {
+      this.$emit('toggleUser')
     }
   },
   name: 'User',
@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .User {
+  cursor: pointer;
   &-image {
     width: 40px;
     height: 40px;

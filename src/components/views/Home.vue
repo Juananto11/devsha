@@ -1,23 +1,28 @@
 <template lang="pug">
-  .Home.h-100(:class='{"home": toggleMenu}')
+  .Home.h-100(:class='{"home": showMenu}')
+    Publisher(
+      :showPublisher='showPublisher'
+      @togglePublisher='togglePublisher'
+    )
     Header(
-      :toggleMenu='toggleMenu'
+      :showMenu='showMenu'
       :showMessages='showMessages'
       :showNotifications='showNotifications'
       :showUser='showUser'
-      @visible='visible'
-      @visibleMessages='visibleMessages'
-      @visibleNotifications='visibleNotifications'
-      @visibleUser='visibleUser'
+      @toggleMenu='toggleMenu'
+      @toggleMessages='toggleMessages'
+      @toggleNotifications='toggleNotifications'
+      @togglePublisher='togglePublisher'
+      @toggleUser='toggleUser'
       @dontShowPopovers='dontShowPopovers'
     )
     Lateral(
-      :toggleMenu='toggleMenu',
+      :showMenu='showMenu',
       @dontShowPopovers='dontShowPopovers'
     )
     router-view.padding(
       @dontShowPopovers='dontShowPopovers'
-      :toggleMenu='toggleMenu'
+      :showMenu='showMenu'
     )
     Chat(@dontShowPopovers='dontShowPopovers')
 </template>
@@ -26,39 +31,51 @@
 import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
+import Publisher from './home-components/Publisher'
 
 export default {
   name: 'Home',
   components: {
     Chat,
     Header,
-    Lateral
+    Lateral,
+    Publisher
   },
   data () {
     return {
-      toggleMenu: true,
+      showMenu: true,
       showMessages: false,
       showNotifications: false,
+      showPublisher: true,
       showUser: false
     }
   },
   methods: {
-    visible () {
-      this.toggleMenu = !this.toggleMenu
+    toggleMenu () {
+      this.showMenu = !this.showMenu
     },
-    visibleMessages () {
+    toggleMessages () {
       this.showMessages = !this.showMessages
       this.showNotifications = false
+      this.showPublisher = false
       this.showUser = false
     },
-    visibleNotifications () {
+    toggleNotifications () {
       this.showMessages = false
       this.showNotifications = !this.showNotifications
+      this.showPublisher = false
       this.showUser = false
     },
-    visibleUser () {
+    togglePublisher () {
       this.showMessages = false
       this.showNotifications = false
+      this.showPublisher = !this.showPublisher
+      this.showUser = false
+    },
+    toggleUser () {
+      this.showMessages = false
+      this.showNotifications = false
+      this.showPublisher = false
       this.showUser = !this.showUser
     },
     dontShowPopovers () {

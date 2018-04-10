@@ -1,11 +1,11 @@
 <template lang="pug">
   .Posts.d-flex.align-items-start.w-100(@click='dontShowPopovers')
     div.post-container
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
-      CardPost(:toggleMenu='toggleMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
+      CardPost(:showMenu='showMenu')
     FriendSuggestion
 </template>
 
@@ -24,7 +24,7 @@ export default {
     }
   },
   name: 'Posts',
-  props: ['toggleMenu']
+  props: ['showMenu']
 }
 </script>
 

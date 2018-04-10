@@ -1,7 +1,6 @@
 <template lang="pug">
-  .Notifications.h-100.d-flex.align-items-center.justify-content-center(@click='visibleNotifications')
+  .Notifications.h-100.d-flex.align-items-center.justify-content-center(@click='toggleNotifications')
     .Notifications-icon
-      .User.h-100.d-flex.align-items-center.justify-content-center
     slot(name='borde')
     .invisible-popover(v-if='showNotifications')
       Popover.pop-notifications
@@ -80,8 +79,8 @@ export default {
     Popover
   },
   methods: {
-    visibleNotifications () {
-      this.$emit('visibleNotifications')
+    toggleNotifications () {
+      this.$emit('toggleNotifications')
     }
   },
   name: 'Notification',
@@ -92,6 +91,7 @@ export default {
 <style lang="scss" scoped>
 .Notifications {
   width: 60px;
+  cursor: pointer;
   &-icon::before {
     content: '\e7f5';
     font-family: 'icons';

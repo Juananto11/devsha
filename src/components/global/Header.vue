@@ -5,7 +5,7 @@
         img.logo-img(src='./../../assets/images/ds-logo.svg')
         h1.m-0 devsha
         .borde
-      .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='visible')
+      .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='toggleMenu')
         span.icon-menu-dots.d-block.rounded(:class='{"large": !toggleMenu}')
         .borde
       .search.h-100.w-50.d-flex.justify-content-center.align-items-center
@@ -13,11 +13,25 @@
         input.search-input.border-0.p-2.w-100(type='text' placeholder="Buscar")
         .borde
     .d-flex.h-100
-      Messages.messages(:showMessages='showMessages' @visibleMessages='visibleMessages')
+      .publication.h-100.d-flex.align-items-center.justify-content-center(
+        @click='togglePublisher'
+      )
+        .publication-icon.mx-3 Publicar
+        .borde(slot='borde')
+      Messages.messages(
+        :showMessages='showMessages'
+        @toggleMessages='toggleMessages'
+      )
         .borde(slot="borde")
-      Notifications.notifications(:showNotifications='showNotifications' @visibleNotifications='visibleNotifications')
+      Notifications.notifications(
+        :showNotifications='showNotifications'
+        @toggleNotifications='toggleNotifications'
+      )
         .borde(slot="borde")
-      User.user(:showUser='showUser' @visibleUser='visibleUser')
+      User.user(
+        :showUser='showUser'
+        @toggleUser='toggleUser'
+      )
         .borde(slot="borde")
 
 </template>
@@ -34,17 +48,20 @@ export default {
     User
   },
   methods: {
-    visible () {
-      this.$emit('visible')
+    toggleMenu () {
+      this.$emit('toggleMenu')
     },
-    visibleMessages () {
-      this.$emit('visibleMessages')
+    toggleMessages () {
+      this.$emit('toggleMessages')
     },
-    visibleNotifications () {
-      this.$emit('visibleNotifications')
+    toggleNotifications () {
+      this.$emit('toggleNotifications')
     },
-    visibleUser () {
-      this.$emit('visibleUser')
+    togglePublisher () {
+      this.$emit('togglePublisher')
+    },
+    toggleUser () {
+      this.$emit('toggleUser')
     },
     dontShowPopovers () {
       this.$emit('dontShowPopovers')
@@ -52,7 +69,7 @@ export default {
   },
   name: 'Header',
   props: [
-    'toggleMenu',
+    'showMenu',
     'showMessages',
     'showNotifications',
     'showUser'
@@ -64,6 +81,7 @@ export default {
 .Header {
   height: 60px;
   box-shadow: 1px 1px 5px rgba($color: #000, $alpha: .5);
+  z-index: 50;
 }
 .cover {
   background-color: rgba(0, 0, 0, 0.432);
@@ -72,6 +90,7 @@ export default {
   left: 0;
 }
 .logo {
+  cursor: pointer;
   &-img {
     width: 60px;
   }
@@ -89,6 +108,7 @@ export default {
   transition: width ease .3s;
 }
 .toggle-lateral-bar {
+  cursor: pointer;
   min-width: 60px;
   .icon-menu-dots {
     background-color: #000;
@@ -100,6 +120,17 @@ export default {
   }
   .large {
     width: 22px;
+  }
+}
+.publication {
+  cursor: pointer;
+  &-icon {
+    &::after {
+      content: '\e22b';
+      font-family: 'icons';
+      font-size: 1.5em;
+      margin: 0 0 0 18px;
+    }
   }
 }
 .search {
@@ -119,6 +150,7 @@ export default {
 .search,
 .notifications,
 .messages,
+.publication,
 .user {
   position: relative;
   &-icon{

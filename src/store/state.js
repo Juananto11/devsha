@@ -1,3 +1,6 @@
+'use strict'
+
 export default {
-  isVisible: true
+  isVisible: true,
+  user: {}
 }

@@ -1,7 +1,7 @@
 <template lang="pug">
-  .Card-post.p-3.border.mb-4(:class='{"Card-post-large": !toggleMenu}')
+  .Card-post.p-3.border.mb-4(:class='{"Card-post-large": !showMenu}')
     Comments(
-      :toggleMenu='toggleMenu',
+      :showMenu='showMenu',
       :showComments='showComments',
       @closeComments='toggleComments'
     )
@@ -43,7 +43,7 @@ export default {
     }
   },
   name: 'Card-post',
-  props: ['toggleMenu']
+  props: ['showMenu']
 }
 </script>
 

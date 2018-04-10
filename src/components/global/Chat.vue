@@ -4,8 +4,9 @@
       .chats-sent(
         v-for='user in usersConnected',
         v-if='user.chatting'
+        ref='containerChat'
       )
-        .chats-sent-title.px-3.py-1.d-flex.justify-content-between.align-items-center.bg-success(@click='toggleMessages(user.name)')
+        .chats-sent-title.px-3.py-1.d-flex.justify-content-between.align-items-center.bg-success(@click='toggleChat(user.name)')
           span Chateando con {{ user.name }}
           span(@click='closeChat(user.name)') Cerrar
         .chats-sent-body.bg-primary(:class='{"chats-sent-body-extended": user.showMessages}')
@@ -16,14 +17,13 @@
                 span.w-100.text-right {{ message.message }}
                 small {{ message.hour() }}
           .message.d-flex.w-100
-            input.message-input.w-100(
+            input.message-input.w-100.px-2(
               type="text"
               v-model='user.message'
+              ref='inputMessage'
               @keypress.enter='sendMessage(user.name)'
             )
-            button.message-send(
-              @click='sendMessage(user.name)'
-            )
+            button.message-send(@click='sendMessage(user.name)')
     .user-connected
       .user-connected-title.px-3.py-1.d-flex.justify-content-between.bg-danger(@click='toggleConnected')
         span Conectados
@@ -64,28 +64,43 @@ export default {
           messages: [],
           name: 'USUARIO 3',
           showMessages: false
+        },
+        {
+          chatting: false,
+          message: '',
+          messages: [],
+          name: 'USUARIO 4',
+          showMessages: false
+        },
+        {
+          chatting: false,
+          message: '',
+          messages: [],
+          name: 'USUARIO 5',
+          showMessages: false
+        },
+        {
+          chatting: false,
+          message: '',
+          messages: [],
+          name: 'USUARIO 6',
+          showMessages: false
         }
       ]
     }
   },
   methods: {
     closeChat (userName) {
-      let userLong = this.usersConnected.length
-      for (let i = 0; i < userLong; i++) {
-        if (userName === this.usersConnected[i].name) {
-          this.usersConnected[i].chatting = false
+      this.usersConnected.forEach(user => {
+        if (userName === user.name) {
+          user.chatting = false
         }
-      }
+      })
     },
     dontShowPopovers () {
       this.$emit('dontShowPopovers')
     },
     sendMessage (userName) {
-      this.$refs.chats.forEach(chat => {
-        setTimeout(() => {
-          chat.scrollTop = chat.scrollHeight
-        }, 100)
-      })
       let user = this.usersConnected.find(user => {
         if (user.name === userName) return user
       })
@@ -118,40 +133,57 @@ export default {
         })
         user.message = ''
       }
+      this.$refs.inputMessage.forEach(input => input.focus())
+      this.$refs.chats.forEach(chat => {
+        setTimeout(() => {
+          chat.scrollTop = chat.scrollHeight
+        }, 100)
+      })
     },
     showChat (userName) {
-      let userLong = this.usersConnected.length
-      for (let i = 0; i < userLong; i++) {
-        if (userName === this.usersConnected[i].name) {
+      this.usersConnected.forEach(user => {
+        if (userName === user.name) {
           setTimeout(() => {
-            this.usersConnected[i].chatting = true
+            user.chatting = true
           }, 200)
           setTimeout(() => {
-            this.usersConnected[i].showMessages = true
+            user.showMessages = true
           }, 500)
-        } else if (userName !== this.usersConnected[i].name) {
-          this.usersConnected[i].showMessages = false
+        } else if (userName !== user.name) {
+          user.showMessages = false
         }
-      }
+      })
       this.showConnected = false
+      setTimeout(() => {
+        this.$refs.inputMessage.forEach(input => input.focus())
+      }, 500)
     },
     toggleConnected () {
-      let userLong = this.usersConnected.length
       this.showConnected = !this.showConnected
-      for (let i = 0; i < userLong; i++) {
-        this.usersConnected[i].showMessages = false
-      }
+      this.usersConnected.forEach(user => {
+        user.showMessages = false
+      })
     },
-    toggleMessages (userName) {
-      let userLong = this.usersConnected.length
-      for (let i = 0; i < userLong; i++) {
-        if (userName === this.usersConnected[i].name) {
-          this.usersConnected[i].showMessages = !this.usersConnected[i].showMessages
+    toggleChat (userName) {
+      this.usersConnected.forEach(user => {
+        if (userName === user.name) {
+          user.showMessages = !user.showMessages
           this.showConnected = false
-        } else if (userName !== this.usersConnected[i].name) {
-          this.usersConnected[i].showMessages = false
+        } else if (userName !== user.name) {
+          user.showMessages = false
         }
-      }
+      })
+      setTimeout(() => {
+        this.$refs.containerChat.forEach((chat, c) => {
+          if (chat.clientHeight === 332) {
+            this.$refs.inputMessage.forEach((input, i) => {
+              if (c === i) {
+                input.focus()
+              }
+            })
+          }
+        })
+      }, 400)
     }
   },
   name: 'Chat'
@@ -201,6 +233,9 @@ export default {
     }
   }
   .message{
+    &-input {
+      outline: none;
+    }
     &-send {
       &::before {
         font-family: 'icons';

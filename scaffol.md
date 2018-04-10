@@ -30,3 +30,12 @@
 | | index.js
 | | mutations.js
 | | state.js
+
+
+home
+friends
+profile
+profile/:id
+images
+videos
+news
