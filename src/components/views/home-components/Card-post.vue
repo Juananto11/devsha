@@ -43,7 +43,11 @@ export default {
     }
   },
   name: 'Card-post',
+<<<<<<< HEAD:src/components/views/home-components/Card-post.vue
   props: ['showMenu']
+=======
+  props: ['toggleMenu']
+>>>>>>> 4084d9dd699211e6c69ebfbe83be315124af3d11:src/components/views/home-components/Card-post.vue
 }
 </script>
 

@@ -1,5 +1,4 @@
-'use strict';
+'use strict'
 
-export const toggleVisible = (state) => {
-  state.isVisible = !state.isVisible
+export const REGISTER_USER = (state, payload) => {
 }

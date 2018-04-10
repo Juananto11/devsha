@@ -2,19 +2,7 @@
   .Friends(@click='dontShowPopovers')
     h2 Tus amigos
     .w-100.d-flex.flex-wrap.justify-content-around
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
-      CardFriend
+      CardFriend(v-for='i in [1,2,3,4,5,6,7,8,9,10]')
 </template>
 
 <script>
@@ -34,5 +22,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
