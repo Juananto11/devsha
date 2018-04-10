@@ -42,7 +42,11 @@ export default {
     }
   },
   name: 'ProfileFriend',
+<<<<<<< HEAD
   props: ['showMenu']
+=======
+  props: ['toggleMenu']
+>>>>>>> 4084d9dd699211e6c69ebfbe83be315124af3d11
 }
 </script>
 
