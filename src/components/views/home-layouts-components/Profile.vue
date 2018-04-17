@@ -6,10 +6,10 @@
       img.rounded.info-image(src='' width='220' height='220')
       .info-text
         p.info-tag Nombre de Usuario
-        p.info-value.px-2.py-0(v-if='data') {{ userName }}
+        p.info-value.px-2.py-0(v-if='data') {{ getUser.username }}
         input.info-value.px-2.py-0(
           type='text'
-          v-model='userName'
+          v-model='username'
           v-else
         )
         p.info-tag Nombre Completo
@@ -20,14 +20,14 @@
           v-else
         )
         p.info-tag Correo Electrónico
-        p.info-value.px-2.py-0(v-if='data') {{ email }}
+        p.info-value.px-2.py-0(v-if='data') {{ getUser.email }}
         input.info-value.px-2.py-0(
           type='text'
           v-model='email'
           v-else
         )
         p.info-tag Fecha de registro
-        p.info-value.px-2.py-0 {{ regisry }}
+        p.info-value.px-2.py-0 {{ getUser.createdAt }}
         .changeInfo.d-flex.justify-content-around.w-100.mt-4
           button.btn.btn-danger(
             @click='changePass'
@@ -59,15 +59,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
+  computed: {
+    ...mapGetters(['getUser'])
+  },
   data () {
     return {
       data: true,
       pass: true,
-      userName: 'Juananto11',
-      fullName: 'Juan Antonio García Guillen',
-      email: 'juananto11@devsha.com',
-      regisry: '10 de Marzo de 2018'
+      username: '',
+      fullName: '',
+      email: ''
     }
   },
   methods: {
@@ -102,6 +106,7 @@ export default {
     margin-right: 2em;
   }
   &-value {
+    height: 52px;
     width: 100%;
     text-align: right;
     font-size: 2em;

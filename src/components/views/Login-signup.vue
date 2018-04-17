@@ -3,7 +3,7 @@
     header.w-100
       .row.w-100.m-0.d-flex.align-items-center
         .container-img.p-0.col-3.col-md-2.col-lg-1.ml-lg-5
-          img.logo.w-100(src="../../assets/images/logo.png", alt="Logo devsha")
+          img.logo.w-100(src="../../assets/images/ds-logo.svg", alt="Logo devsha")
         h1.text-center.m-0.col-6.col-sm-8.col-lg-9 Bienvenido&nbsp;
           span.d-none.d-md-inline-block a devsha
     .row.w-100.m-0.p-0.d-flex.justify-content-center.pt-3
@@ -24,9 +24,12 @@ export default {
   name: 'login-signup',
   data () {
     return {
-      toggleClassLogin: true,
-      toggleClassSignup: false
+      toggleClassLogin: null,
+      toggleClassSignup: null
     }
+  },
+  computed: {
+
   },
   methods: {
     toggleClassL () {
@@ -36,7 +39,22 @@ export default {
     toggleClassS () {
       this.toggleClassLogin = false
       this.toggleClassSignup = true
+    },
+    checkUrl () {
+      switch (window.location.pathname) {
+        case '/login':
+          this.toggleClassLogin = true
+          this.toggleClassSignup = false
+          break
+        case '/signup':
+          this.toggleClassLogin = false
+          this.toggleClassSignup = true
+          break
+      }
     }
+  },
+  created () {
+    this.checkUrl()
   }
 }
 </script>

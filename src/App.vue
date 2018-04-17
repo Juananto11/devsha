@@ -1,9 +1,23 @@
 <template lang='pug'>
   .App
+    transition(name='fade')
+      Sppiner(v-if='showSppiner')
     router-view
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import Sppiner from './components/global/Sppiner'
+
 export default {
+  components: {
+    Sppiner
+  },
+  computed: {
+    ...mapGetters(['showSppiner'])
+  },
+  mounted () {
+    console.log(this.showSppiner)
+  },
   name: 'App'
 }
 </script>
@@ -29,5 +43,11 @@ export default {
        url('./assets/fonts/neuropol.svg#neuropol') format('svg');
   font-weight: normal;
   font-style: normal;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

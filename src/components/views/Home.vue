@@ -1,9 +1,10 @@
 <template lang="pug">
   .Home.h-100(:class='{"home": showMenu}')
-    Publisher(
-      :showPublisher='showPublisher'
-      @togglePublisher='togglePublisher'
-    )
+    transition(name='fade')
+      Publisher(
+        v-if='showPublisher'
+        @togglePublisher='togglePublisher'
+      )
     Header(
       :showMenu='showMenu'
       :showMessages='showMessages'
@@ -31,22 +32,24 @@
 import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
-import Publisher from './home-components/Publisher'
+import Publisher from './../global/Publisher'
 
 export default {
-  name: 'Home',
   components: {
     Chat,
     Header,
     Lateral,
     Publisher
   },
+  created () {
+
+  },
   data () {
     return {
       showMenu: true,
       showMessages: false,
       showNotifications: false,
-      showPublisher: true,
+      showPublisher: false,
       showUser: false
     }
   },
@@ -83,7 +86,8 @@ export default {
       this.showNotifications = false
       this.showUser = false
     }
-  }
+  },
+  name: 'Home'
 }
 </script>
 

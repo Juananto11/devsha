@@ -1,5 +1,5 @@
 <template lang="pug">
-  .Publisher.d-flex.justify-content-center.align-items-center(v-if='showPublisher')
+  .Publisher.d-flex.justify-content-center.align-items-center
     button.close-publisher.btn.btn-danger.rounded-circle(@click='togglePublisher') X
     .container-publisher.border
       nav.w-100
@@ -18,15 +18,32 @@
           ) Video
       .content.d-flex(:class='{"content-publication": showPublication, "content-image": showImage, "content-video": showVideo}')
         .publisher-publication(:class='{"publisher-publication-2": showPublication}')
-          h3.text-center.m-3 Publicación
-          textarea.d-block.px-3.py-2(placeholder="¿Qué quieres publicar?")
-          label.pt-2.px-3.w-100.d-flex.justify-content-between.align-items-center URL
-            input.ml-3.py-2.px-3.w-100.py-1.px-2(type='text' placeholder="Ingresa una URL")
-          button.btn.btn-success.d-block Publicar
-        .publisher-image(:class='{"publisher-image-2": showImage}') Image
-          form(enctype='multipart/form-data')
-            input(type='file')
-        .publisher-video(:class='{"publisher-video-2": showVideo}') Video
+          .publisher-container.px-3
+            h3.mt-3.mb-0.text-center Publicación
+            label.d-flex.m-0.justify-content-between.align-items-center Escribe lo que piensas
+            textarea.d-block.w-100.px-3.my-0.py-2(id='publicationText' placeholder="¿Qué quieres publicar?")
+            p.font-weight-bold.text-center.my-1 Ó
+            label.m-0.w-100.d-flex.justify-content-between.align-items-center Comparte una noticia
+            input.py-2.px-3.w-100(type='text' placeholder="Ingresa una URL")
+            button.btn.btn-success.d-block Publicar
+        .publisher-image(:class='{"publisher-image-2": showImage}')
+          .publisher-container.px-3
+            h3.text-center.m-3 Publica una imagen
+            label.pt-2.d-flex.align-items-center Desde tu PC
+            input(type='file' id="image")
+            p.font-weight-bold.text-center.my-3 Ó
+            label.pt-2.w-100.d-flex.justify-content-between.align-items-center Una desde una URL
+            input.py-2.px-3.w-100(type='text' placeholder="Ingresa una URL")
+            button.btn.btn-success.d-block Publicar
+        .publisher-video(:class='{"publisher-video-2": showVideo}')
+          .publisher-container.px-3
+            h3.text-center.m-3 Publica un video
+            label.pt-2.d-flex.align-items-center Desde tu PC
+            input(type='file' id="image")
+            p.font-weight-bold.text-center.my-3 Ó
+            label.pt-2.w-100.d-flex.justify-content-between.align-items-center Una desde una URL
+            input.py-2.px-3.w-100(type='text' placeholder="Ingresa una URL")
+            button.btn.btn-success.d-block Publicar
 </template>
 
 <script>
@@ -58,13 +75,13 @@ export default {
       this.$emit('togglePublisher')
     }
   },
-  name: 'Publication',
-  props: ['showPublisher']
+  name: 'Publication'
 }
 </script>
 
 <style lang="scss" scoped>
   .Publisher {
+    overflow: hidden;
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -96,7 +113,7 @@ export default {
     transition: background-color linear .5s;
   }
   .content {
-    height: 300px;
+    height: 350px;
     position: relative;
     &::before {
       content: '';
@@ -132,16 +149,17 @@ export default {
     }
   }
   .publisher {
-    &-publication{
+    &-publication,
+    &-image,
+    &-video{
       width: 0;
-      height: 300px;
       display: inline-block;
       transition: width linear .5s;
       overflow: hidden;
       &-2 {
         width: 100%;
       }
-      input,
+      input[type='text'],
       textarea {
         outline: none;
         border-radius: 10px;
@@ -157,25 +175,8 @@ export default {
         margin: 1em auto;
       }
     }
-    &-image{
-      overflow: hidden;
-      width: 0;
-      height: 300px;
-      display: inline-block;
-      transition: width linear .5s;
-      &-2 {
-        width: 100%;
-      }
-    }
-    &-video{
-      overflow: hidden;
-      width: 0;
-      height: 300px;
-      display: inline-block;
-      transition: width linear .5s;
-      &-2 {
-        width: 100%;
-      }
+    &-container {
+      min-width: 598px;
     }
   }
 </style>

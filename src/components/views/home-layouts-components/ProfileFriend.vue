@@ -6,7 +6,7 @@
       img.rounded.info-image(src='' width='220' height='220')
       .info-text
         p.info-tag Nombre de Usuario
-        p.info-value.px-2.py-0 {{ userName }}
+        p.info-value.px-2.py-0 {{ username }}
         p.info-tag Nombre Completo
         p.info-value.px-2.py-0 {{ fullName }}
         p.info-tag Correo Electrónico
@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      userName: 'Juananto11',
+      username: 'Juananto11',
       fullName: 'Juan Antonio García Guillen',
       email: 'juananto11@devsha.com',
       regisry: '10 de Marzo de 2018'

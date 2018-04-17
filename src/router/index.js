@@ -9,6 +9,10 @@ import Profile from './../components/views/home-layouts-components/Profile.vue'
 import ProfileFriend from './../components/views/home-layouts-components/ProfileFriend.vue'
 import Friends from './../components/views/home-layouts-components/Friends.vue'
 import LoginSignup from './../components/views/Login-signup.vue'
+import Login from '../components/views/login-signup-components/Login.vue'
+import Signup from '../components/views/login-signup-components/Signup.vue'
+import Recovery from '../components/views/login-signup-components/Recovery.vue'
+import ValidateMail from './../components/views/login-signup-components/ValidateMail.vue'
 
 Vue.use(Router)
 
@@ -42,23 +46,39 @@ export default new Router({
       ]
     },
     {
+      path: '/login',
+      component: LoginSignup,
+      children: [
+        {
+          path: '',
+          name: 'login',
+          component: Login
+        },
+        {
+          path: '/signup',
+          name: 'signup',
+          component: Signup
+        },
+        {
+          path: '/recovery',
+          name: 'recovery',
+          component: Recovery
+        }
+      ]
+    },
+    {
+      path: '/validate',
+      name: 'validate',
+      component: ValidateMail
+    },
+    {
+      path: '/validate/:id',
+      name: 'validateId',
+      component: ValidateMail
+    },
+    {
       path: '/posts',
       redirect: '/'
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginSignup
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: LoginSignup
-    },
-    {
-      path: '/recovery',
-      name: 'recovery',
-      component: LoginSignup
     }
   ]
 })
