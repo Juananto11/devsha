@@ -43,6 +43,7 @@ export default {
   },
   name: 'ProfileFriend',
   props: ['showMenu']
+
 }
 </script>
 
