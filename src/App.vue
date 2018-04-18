@@ -1,22 +1,19 @@
 <template lang='pug'>
   .App
     transition(name='fade')
-      Sppiner(v-if='showSppiner')
+      Spinner(v-if='showSppiner')
     router-view
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Sppiner from './components/global/Sppiner'
+import Spinner from './components/global/Spinner'
 
 export default {
   components: {
-    Sppiner
+    Spinner
   },
   computed: {
     ...mapGetters(['showSppiner'])
-  },
-  mounted () {
-    console.log(this.showSppiner)
   },
   name: 'App'
 }

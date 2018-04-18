@@ -150,10 +150,9 @@ export default {
       result: null
     }
   },
-
   methods: {
     ...mapActions(['registerUser']),
-    ...mapMutations(['TOGGLE_SPPINER']),
+    ...mapMutations(['TOGGLE_SPINNER']),
     validateForm (scope) {
       this.$validator.validateAll(scope).then((result) => {
         this.result = result
@@ -168,13 +167,16 @@ export default {
           // this.terms = false
           // this.showModal = true
           this.registerUser(this.newUser)
-          this.TOGGLE_SPPINER()
+          this.TOGGLE_SPINNER()
         }
       })
       setTimeout(() => {
         this.$router.push('validate')
       }, 1000)
     }
+  },
+  mounted () {
+    this.TOGGLE_SPINNER(false)
   },
   name: 'signup'
 }

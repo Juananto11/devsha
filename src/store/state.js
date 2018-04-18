@@ -1,7 +1,7 @@
 'use strict'
 
 export default {
-  showSppiner: false,
+  showSppiner: true,
   disblockButton: true,
   user: {}
 }

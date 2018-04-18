@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['user'])
+    ...mapGetters(['getUser'])
   },
   data () {
     return {
@@ -57,9 +57,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      registerUser: 'registerUser'
-    }),
+    ...mapActions(['registerUser']),
+    ...mapMutations(['TOGGLE_SPINNER']),
     validateForm (scope) {
       console.log(this.email)
       this.$validator.validateAll(scope).then((result) => {
@@ -71,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.user)
+    this.TOGGLE_SPINNER(false)
   },
   name: 'login-page'
 }

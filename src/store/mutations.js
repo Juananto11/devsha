@@ -4,9 +4,9 @@ export const REGISTER_USER = (state, payload) => {
   state.user = payload
 }
 
-export const TOGGLE_SPPINER = (state, payload) => {
+export const TOGGLE_SPINNER = (state, payload) => {
   setTimeout(() => {
-    state.showSppiner = !state.showSppiner
+    state.showSppiner = payload
   }, 500)
 }
 

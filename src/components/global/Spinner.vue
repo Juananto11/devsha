@@ -1,15 +1,15 @@
 <template lang="pug">
-  .Sppiner.d-flex.justify-content-center.align-items-center
+  .Spinner.d-flex.justify-content-center.align-items-center
     .spin
 </template>
 <script>
 export default {
-  name: 'Sppiner'
+  name: 'Spinner'
 }
 </script>
 
 <style scoped>
-.Sppiner {
+.Spinner {
   width: 100vw;
   height: 100vh;
   position: absolute;

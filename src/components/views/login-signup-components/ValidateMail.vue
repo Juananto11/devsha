@@ -36,10 +36,10 @@ export default {
   },
   methods: {
     ...mapActions(['validateMail', 'activateAccount']),
-    ...mapMutations(['TOGGLE_SPPINER']),
+    ...mapMutations(['TOGGLE_SPINNER']),
     disblockAccount () {
       this.activateAccount(this.$route.params.id)
-      this.TOGGLE_SPPINER()
+      this.TOGGLE_SPINNER()
       setTimeout(() => {
         this.$router.push('/')
       }, 1000)
