@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
   .Home.h-100(:class='{"home": showMenu}')
     transition(name='fade')
       Publisher(
@@ -30,7 +30,6 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-
 import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
@@ -96,14 +95,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.Home {
-  padding: 60px 0 0 60px;
-}
-.home {
-  padding: 60px 0 0 180px;
-}
-.padding {
-  padding: 20px 20px 30px 40px
-}
+<style lang='scss' scoped>
+  .Home {
+    padding: 60px 0 0 60px
+  }
+  .home {
+    padding: 60px 0 0 180px
+  }
+  .padding {
+    padding: 20px 20px 30px 40px
+  }
 </style>

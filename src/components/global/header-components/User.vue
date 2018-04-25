@@ -1,6 +1,6 @@
 <template lang="pug">
   .User.d-flex.align-items-center.justify-content-center(@click='toggleUser')
-    img.User-image
+    img.User-image(:src='getUser.avatar')
     p.User-name.m-0.px-3 {{ getUser.username }}
     .User-icon.mr-2(:class='{"User-icon-down": !showUser, "User-icon-up": showUser}')
     slot(name='borde')
@@ -10,16 +10,18 @@
           img.bo0rounded-circle.mr-3(src='' height='20' width='20')
           | Usuario
         ul.list-unstyled(slot='body')
-          router-link.d-flex.align-items-center(to='profile')
-            span.mr-3.account
-            p.m-0 Ver perfil
-          router-link.d-flex.align-items-center(to='/')
-            span.mr-3.exit
-            p.m-0 Cerrar Sesión
+          li(@click='toProfile')
+            a.d-flex.align-items-center
+              span.mr-3.account
+              p.m-0 Ver perfil
+          li(@click='closeSession')
+            a.d-flex.align-items-center
+              span.mr-3.exit
+              p.m-0 Cerrar Sesión
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Popover from './Popover'
 
 export default {
@@ -30,8 +32,19 @@ export default {
     Popover
   },
   methods: {
+    ...mapMutations(['DELETE_SESSION', 'TOGGLE_SPINNER']),
+    closeSession () {
+      console.log('close')
+      this.TOGGLE_SPINNER(true)
+      this.DELETE_SESSION()
+      this.$router.push('login')
+    },
     toggleUser () {
       this.$emit('toggleUser')
+    },
+    toProfile () {
+      console.log('to profile')
+      this.$router.push('profile')
     }
   },
   name: 'User',
@@ -46,7 +59,6 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #0f0;
   }
   &-icon {
     &::before {

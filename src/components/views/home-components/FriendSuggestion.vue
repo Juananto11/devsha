@@ -20,7 +20,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  created () {
+    this.findSuggestionsFromFriends()
+  },
+  methods: {
+    ...mapActions(['findSuggestionsFromFriends'])
+  },
   name: 'FriendSuggestion'
 }
 </script>

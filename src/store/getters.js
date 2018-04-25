@@ -10,6 +10,18 @@ export const showSppiner = state => {
   return state.showSppiner
 }
 
+export const getErrorUsername = state => {
+  return state.errorUsername
+}
+
+export const getErrorEmail = state => {
+  return state.errorEmail
+}
+
+export const getRedirect = state => {
+  return state.redirect
+}
+
 export const getRegistry = state => {
   let x = new Date(state.user.registry.split('.')[0])
   let months = {
@@ -34,4 +46,12 @@ export const getRegistry = state => {
   let seconds = x.getSeconds().toString().length < 2 ? `0${x.getSeconds()}` : x.getSeconds()
 
   return `${date} de ${months[month]} de ${year} a las ${hour}:${minutes}:${seconds}`
+}
+
+export const getMessageOfChangePassword = state => {
+  return state.messageOfChangePassword
+}
+
+export const getIncorrectLogin = state => {
+  return state.incorrectLogin
 }

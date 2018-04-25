@@ -8,9 +8,9 @@
       )
         .row.pt-2
           .col
-            .form-group.has-danger
-              label.mt-2(for='username') Nombre de usuario
-              .input-group.mb-2.mt-1
+            .form-group.has-danger.m-0
+              label(for='username') Nombre de usuario
+              .input-group
                 .input-group-addon
                   i
                 input#username.form-control(
@@ -21,15 +21,18 @@
                   autofocus='',
                   v-validate="'required|alpha_num|min:6'"
                 )
-            .form-control-feedback
-              span.text-danger.align-middle(v-show="errors.has('form-signup.username')")
+            .form-control-feedback(v-show="errors.has('form-signup.username')")
+              span.text-danger.align-middle
                 small {{ errors.first('form-signup.username') }}
+            .form-control-feedback(v-show='getErrorUsername')
+              span.text-danger.align-middle
+                small {{ getErrorUsername }}
 
         .row
           .col
-            .form-group.has-danger
-              label.mt-2(for='email') Dirección de correo electrónico
-              .input-group.mb-2.mt-1
+            .form-group.has-danger.m-0
+              label(for='email') Dirección de correo electrónico
+              .input-group
                 .input-group-addon
                   i
                 input#email.form-control(
@@ -39,9 +42,12 @@
                   v-model.trim="email",
                   v-validate="'required|email'"
                 )
-            .form-control-feedback
-              span.text-danger.align-middle(v-show="errors.has('form-signup.email')")
+            .form-control-feedback(v-show="errors.has('form-signup.email')")
+              span.text-danger.align-middle
                 small {{ errors.first('form-signup.email') }}
+            .form-control-feedback(v-show='getErrorEmail')
+              span.text-danger.align-middle
+                small {{ getErrorEmail }}
 
         .row
           .col
@@ -108,7 +114,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Modal from './modal-component'
 import termsCond from '../../../terms/terms-conditions'
 
@@ -117,6 +123,7 @@ export default {
     Modal
   },
   computed: {
+    ...mapGetters(['getErrorUsername', 'getErrorEmail', 'getRedirect']),
     hideWarning () {
       if (this.password === this.repeatPass) {
         return true
@@ -140,11 +147,7 @@ export default {
       repeatPass: 'aria1703',
       terms: true,
       // terms: false,
-      newUser: {
-        username: '',
-        email: '',
-        password: ''
-      },
+      newUser: {},
       termsCond,
       showTerms: null,
       result: null
@@ -152,7 +155,7 @@ export default {
   },
   methods: {
     ...mapActions(['registerUser']),
-    ...mapMutations(['TOGGLE_SPINNER']),
+    ...mapMutations(['TOGGLE_SPINNER', 'RESET_ERRORS']),
     validateForm (scope) {
       this.$validator.validateAll(scope).then((result) => {
         this.result = result
@@ -166,13 +169,18 @@ export default {
           // this.email = ''
           // this.terms = false
           // this.showModal = true
+          this.TOGGLE_SPINNER(true)
           this.registerUser(this.newUser)
-          this.TOGGLE_SPINNER()
+          const timer = setInterval(() => {
+            if (this.getRedirect) {
+              setTimeout(() => {
+                this.$router.push('validate')
+              }, 300)
+              clearInterval(timer)
+            }
+          }, 100)
         }
       })
-      setTimeout(() => {
-        this.$router.push('validate')
-      }, 1000)
     }
   },
   mounted () {

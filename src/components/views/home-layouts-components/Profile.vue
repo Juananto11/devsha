@@ -1,9 +1,9 @@
 <template lang="pug">
-  .Profile.w-100(
+  .Profile.w-100#hfdfdfg(
     @click='dontShowPopovers'
   )
     .info.w-100.text-right.d-flex.justify-content-around.mt-4
-      img.rounded.info-image(src='' width='220' height='220')
+      img.rounded.info-image(:src='getUser.avatar' width='220' height='220')
       .info-text
         p.info-tag Nombre de Usuario
         p.info-value.px-2.py-0(v-if='data') {{ getUser.username }}
@@ -37,11 +37,11 @@
         .changeInfo.d-flex.justify-content-around.w-100.mt-4
           div(v-if='data')
             button.btn.btn-danger(
-              @click='changePass'
+              @click='changePassword'
               v-if='pass'
             ) Cambiar contraseña
             button.btn.btn-success(
-              @click='acceptPass'
+              @click='acceptPasswordChange'
               v-else
             ) Aceptar contraseña
           button.btn.btn-danger(
@@ -54,7 +54,7 @@
               v-if='data'
             ) Modificar datos
             button.btn.btn-success(
-              @click='acceptChanges'
+              @click='acceptDataChanges'
               v-else
             ) Aceptar datos
           button.btn.btn-danger(
@@ -67,24 +67,28 @@
           label.info-tag.d-block.m-2 Contraseña actual
           input.info-value.w-100.px-3.py-2(
             type='password'
-            v-model='oldPassword'
+            v-model.trim='oldPassword'
           )
         div.w-100.px-2
           label.info-tag.d-block.m-2 Contraseña nueva
           input.info-value.w-100.px-3.py-2(
             type='password'
-            v-model='newPassword'
+            v-model.trim='newPassword'
           )
         div.w-100.px-2
           label.info-tag.d-block.m-2 Repitir contraseña actual
           input.info-value.w-100.px-3.py-2(
             type='password'
-            v-model='repeatNewPassword'
+            v-model.trim='repeatNewPassword'
           )
+
+      .container-messages-password
+        p.bg-success.my-5.rounded.py-4.w-100.text-center(v-if='getMessageOfChangePassword.changePassword === "valid"') {{ getMessageOfChangePassword.message }}
+        p.bg-danger.my-5.rounded.py-4.w-100.text-center.h-100(v-if='getMessageOfChangePassword.changePassword === "invalid"') {{ getMessageOfChangePassword.message }}
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Spinner from './../../global/Spinner'
 
 export default {
@@ -92,7 +96,11 @@ export default {
     Spinner
   },
   computed: {
-    ...mapGetters(['getUser', 'getRegistry']),
+    ...mapGetters([
+      'getUser',
+      'getRegistry',
+      'getMessageOfChangePassword'
+    ]),
     getFullName () {
       if (this.getUser.fullName) {
         return this.getUser.fullName
@@ -114,8 +122,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['modifyData']),
-    acceptChanges () {
+    ...mapActions([
+      'modifyData',
+      'resetPassword'
+    ]),
+    ...mapMutations(['SET_MESSAGE_OF_CHANGE_PASSWORD']),
+    acceptDataChanges () {
       let newDataUser = {}
       let newUsername = this.$refs.newUsername.value
       let newFullName = this.$refs.newFullName.value
@@ -153,19 +165,50 @@ export default {
         this.data = true
       }
     },
-    acceptPass () {
-      this.pass = true
+    acceptPasswordChange () {
+      if (this.oldPassword) {
+        if (this.newPassword) {
+          if (this.repeatNewPassword) {
+            if (this.newPassword === this.repeatNewPassword) {
+              this.resetPassword({
+                oldPassword: this.oldPassword,
+                newPassword: this.newPassword
+              })
+
+              this.pass = true
+              this.oldPassword = ''
+              this.newPassword = ''
+              this.repeatNewPassword = ''
+            } else {
+              alert('Las contraseñas no coinciden')
+            }
+          } else {
+            alert('El compo repetir contraseña nueva es requerido')
+          }
+        } else {
+          alert('El compo contraseña nueva es requerido')
+        }
+      } else {
+        alert('El compo contraseña actual es requerido')
+      }
+      setTimeout(() => {
+        this.SET_MESSAGE_OF_CHANGE_PASSWORD({})
+      }, 8000)
     },
     cancelDataChange () {
       this.data = true
     },
     cancelPasswordChange () {
       this.pass = true
+      this.oldPassword = ''
+      this.newPassword = ''
+      this.repeatNewPassword = ''
     },
     changeData () {
       this.data = false
     },
-    changePass () {
+    changePassword () {
+      this.SET_MESSAGE_OF_CHANGE_PASSWORD({})
       this.pass = false
     },
     dontShowPopovers () {
