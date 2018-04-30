@@ -67,16 +67,14 @@ export default {
           this.login(this.userToLogin)
           this.TOGGLE_SPINNER(true)
           const timer = setInterval(() => {
-            console.log('login-1', this.getUser)
             if (this.getUser.ok) {
-              console.log('login-2', this.getUser)
               this.$router.push('/')
               clearInterval(timer)
             }
             if (this.getIncorrectLogin.ok === false) {
               clearInterval(timer)
             }
-          }, 500)
+          }, 100)
         }
       })
     }

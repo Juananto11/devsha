@@ -1,5 +1,5 @@
 <template lang="pug">
-  .User.d-flex.align-items-center.justify-content-center(@click='toggleUser')
+  .User.d-flex.align-items-center.justify-content-center.px-3(@click='toggleUser')
     img.User-image(:src='getUser.avatar')
     p.User-name.m-0.px-3 {{ getUser.username }}
     .User-icon.mr-2(:class='{"User-icon-down": !showUser, "User-icon-up": showUser}')
@@ -37,14 +37,16 @@ export default {
       console.log('close')
       this.TOGGLE_SPINNER(true)
       this.DELETE_SESSION()
-      this.$router.push('login')
+      setTimeout(() => {
+        this.$router.push('/login')
+      }, 500)
     },
     toggleUser () {
       this.$emit('toggleUser')
     },
     toProfile () {
-      console.log('to profile')
-      this.$router.push('profile')
+      this.TOGGLE_SPINNER(true)
+      this.$router.push('/profile')
     }
   },
   name: 'User',

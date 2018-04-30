@@ -16,8 +16,8 @@ export const registerUser = ({ commit }, payload) => {
     .then(res => {
       console.log(res.data.id)
       if (res.data.ok) {
-        commit('TOGGLE_SPINNER', false)
         commit('REDIRECT', true)
+        commit('TOGGLE_SPINNER', false)
       } else {
         commit('TOGGLE_SPINNER', false)
         if (res.data.failed === 'username') commit('SET_ERROR_USERNAME', res.data.message)
@@ -117,7 +117,7 @@ export const resetPassword = ({ commit, state }, payload) => {
     baseURL,
     url: '/api/auth/reset-password',
     headers: {
-      'ContentType': 'application/josn',
+      'ContentType': 'application/json',
       token: window.localStorage.getItem('token')
     },
     data: payload
@@ -142,7 +142,7 @@ export const getUserToSession = ({ commit, state }, payload) => {
     }
   })
     .then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       commit('REGISTER_SESSION', res.data)
     })
     .catch(err => {
@@ -150,17 +150,22 @@ export const getUserToSession = ({ commit, state }, payload) => {
     })
 }
 
-export const findSuggestionsFromFriends = ({ commit, state }, payload) => {
+export const addToMyFriend = ({commit, state}, payload) => {
   axios({
-    method: 'get',
+    method: 'post',
     baseURL,
-    url: '/find-suggestions-friends',
+    url: '/user/add-friend',
     headers: {
       'ContentType': 'application/json',
       token: window.localStorage.getItem('token')
-    }
+    },
+    data: payload
   })
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      commit('REGISTER_SESSION', res.data)
+      commit('TOGGLE_SPINNER', false)
+    })
     .catch(err => {
       if (err) console.log('Por el momento no podemos procesar sus datos intente más tarde Gracias')
     })

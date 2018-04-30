@@ -6,9 +6,9 @@
         h1.m-0 devsha
         .borde
       .toggle-lateral-bar.h-100.d-flex.align-items-center.justify-content-center(@click='toggleMenu')
-        span.icon-menu-dots.d-block.rounded(:class='{"large": !toggleMenu}')
+        span.icon-menu-dots.d-block.rounded(:class='{"large": !showMenu}')
         .borde
-      .search.h-100.w-50.d-flex.justify-content-center.align-items-center
+      .search.h-100.w-50.d-flex.justify-content-center.align-items-center.px-3
         label.search-icon.m-0
         input.search-input.border-0.p-2.w-100(type='text' placeholder="Buscar")
         .borde
@@ -82,6 +82,8 @@ export default {
   height: 60px;
   box-shadow: 1px 1px 5px rgba($color: #000, $alpha: .5);
   z-index: 50;
+  background-color: rgb(0, 81, 255);
+  min-width: 1200px;
 }
 .cover {
   background-color: rgba(0, 0, 0, 0.432);
@@ -104,7 +106,7 @@ export default {
   bottom: 0;
   height: 3px;
   width: 0;
-  background-color: #f00;
+  background-color: black;
   transition: width ease .3s;
 }
 .toggle-lateral-bar {
@@ -134,6 +136,7 @@ export default {
   }
 }
 .search {
+  min-width: 420px;
   &-icon {
     padding-right: 0.5em;
     border-right: 2px solid #808080;

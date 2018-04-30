@@ -88,7 +88,7 @@ export default {
     top: 0;
     left: 0;
     background-color: rgba(255, 255, 255, 0.651);
-    z-index: 100;
+    z-index: 1000;
   }
   .container-publisher {
     width: 600px;

@@ -49,6 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .Card-post {
+  background-color: #fff;
   width: 600px;
   border-radius: 10px;
   box-shadow: 3px 3px 5px rgba($color: #000, $alpha: .5);

@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
 .Popover {
-  background-color: rgb(186, 186, 186);
+  background-color: rgb(0, 81, 255);
   position: relative;
   top: 0;
   right: 0;
@@ -30,7 +30,7 @@ export default {
     right: 18px;
     border-top: 12px solid transparent;
     border-left: 10px solid transparent;
-    border-bottom: 12px solid rgb(186, 186, 186);
+    border-bottom: 12px solid rgb(0, 81, 255);
     border-right: 10px solid transparent;
   }
 }

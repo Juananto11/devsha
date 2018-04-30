@@ -47,4 +47,10 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+body {
+  background-color: rgb(242, 242, 242);
+}
+.App {
+  min-width: 1200px;
+}
 </style>

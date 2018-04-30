@@ -6,30 +6,33 @@
     nav.main-nav
       ul.list-unstyled
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          a.d-flex.align-items-center(
+            @click='towardSection("/")'
+          )
             .home.icon
               .tip(v-if='!showMenu') Inicio
             .ml-2(v-show='showMenu') Inicio
-        li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/friends')
-            .friend.icon
-              .tip(v-if='!showMenu') Amigos
-            .ml-2(v-show='showMenu') Amigos
         li.main-nav-item.d-flex.align-items-center
           div(:class='{"division-icon": !showMenu}')
           div(v-show='showMenu') Publicaciones
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          a.d-flex.align-items-center(
+            @click='towardSection()'
+          )
             .images.icon
               .tip(v-if='!showMenu') Imagenes
             .ml-2(v-show='showMenu') Imagenes
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          a.d-flex.align-items-center(
+            @click='towardSection()'
+          )
             .videos.icon
               .tip(v-if='!showMenu') Videos
             .ml-2(v-show='showMenu') Videos
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          a.d-flex.align-items-center(
+            @click='towardSection()'
+          )
             .posts.icon
               .tip(v-if='!showMenu') Noticias
             .ml-2(v-show='showMenu') Noticias
@@ -37,12 +40,16 @@
           div(:class='{"division-icon": !showMenu}')
           div(v-show='showMenu') Configuración
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/profile')
+          a.d-flex.align-items-center(
+            @click='towardSection(`/profile/${getUser.username}`)'
+          )
             .account.icon
               .tip(v-if='!showMenu') Perfil
             .ml-2(v-show='showMenu') Perfil
         li.main-nav-item(:class='{"pl-4": showMenu}')
-          router-link.d-flex.align-items-center(to='/')
+          a.d-flex.align-items-center(
+            @click='towardSection("/login")'
+          )
             .exit.icon
               .tip(v-if='!showMenu') Salir
             .ml-2(v-show='showMenu') Salir
@@ -59,17 +66,28 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
-  name: 'Lateral',
-  data () {
-    return {
-    }
+  computed: {
+    ...mapGetters(['getUser'])
   },
   methods: {
+    ...mapMutations(['TOGGLE_SPINNER', 'DELETE_SESSION']),
     dontShowPopovers () {
       this.$emit('dontShowPopovers')
+    },
+    towardSection (toward) {
+      this.TOGGLE_SPINNER(true)
+      setTimeout(() => {
+        this.$router.push(toward)
+      }, 300)
+      if (toward === '/login') {
+        this.DELETE_SESSION()
+      }
     }
   },
+  name: 'Lateral',
   props: ['showMenu']
 }
 </script>
@@ -83,6 +101,22 @@ export default {
   left: 0;
   z-index: 5;
   border-right: 2px solid black;
+  background-color: rgb(0, 0, 0);
+  li {
+    cursor: pointer;
+    a {
+    transition: color linear .3s;
+      color: rgb(0, 81, 255);
+    }
+    &:hover{
+      a {
+        color: #35495e;
+      }
+      .icon {
+        color: rgb(0, 81, 255);
+      }
+    }
+  }
 }
 .lateral-toggle {
   width: 60px;
@@ -108,17 +142,21 @@ export default {
   font-family: 'icons';
   font-size: 1.5em;
   position: relative;
-  &:hover .tip {
-    display: block;
-    opacity: .8;
+  transition: color linear .3s;
+  &:hover {
+    .tip {
+      display: block;
+      opacity: .8;
+    }
   }
+
 }
 .tip {
   position: absolute;
   display: none;
   color: white;
   top: 25%;
-  left: 170%;
+  left: 220%;
   background-color: #000;
   z-index: 10;
   padding: 0 .5rem .2rem;
@@ -139,9 +177,6 @@ export default {
 }
 .home::before {
   content: '\e88a';
-}
-.friend::before {
-  content: '\e7fb';
 }
 .images::before {
   content: '\e432';

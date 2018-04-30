@@ -1,10 +1,38 @@
 <template lang="pug">
-  .Profile.w-100#hfdfdfg(
+  .Profile(
     @click='dontShowPopovers'
   )
     .info.w-100.text-right.d-flex.justify-content-around.mt-4
-      img.rounded.info-image(:src='getUser.avatar' width='220' height='220')
-      .info-text
+      .info.img.d-flex.flex-column
+        img.rounded.info-image(
+          v-if='$route.params.id === getUser.username'
+          :src='getUser.avatar'
+          width='220'
+          height='220'
+        )
+        img.rounded.info-image(
+          v-else
+          :src='profileFriend.avatar'
+          width='220'
+          height='220'
+        )
+        button.btn.btn-primary.mx-auto.mt-4(
+          v-if='showButtonAddMyFriends'
+          @click='addFriend'
+        ) Agregar a mis amigos
+        button.btn.btn-success.mx-auto.mt-4(
+          v-if='$route.params.id === getUser.username'
+        ) Cambiar foto de perfil
+      .info-text(v-if='$route.params.id !== getUser.username')
+        p.info-tag Nombre de Usuario
+        p.info-value.px-2.py-0 {{ profileFriend.username }}
+        p.info-tag Nombre Completo
+        p.info-value.px-2.py-0 {{ profileFriend.fullName }}
+        p.info-tag Correo Electrónico
+        p.info-value.px-2.py-0 {{ profileFriend.email }}
+        p.info-tag Fecha de registro
+        p.info-value.px-2.py-0 {{ profileFriend.regisry }}
+      .info-text(v-else)
         p.info-tag Nombre de Usuario
         p.info-value.px-2.py-0(v-if='data') {{ getUser.username }}
         input.info-value.px-2.py-0(
@@ -38,7 +66,7 @@
           div(v-if='data')
             button.btn.btn-danger(
               @click='changePassword'
-              v-if='pass'
+              v-if='showInputPassword'
             ) Cambiar contraseña
             button.btn.btn-success(
               @click='acceptPasswordChange'
@@ -48,7 +76,7 @@
             v-else
             @click='cancelDataChange'
           ) Cancelar
-          div(v-if='pass')
+          div(v-if='showInputPassword')
             button.btn.btn-info(
               @click='changeData'
               v-if='data'
@@ -61,8 +89,11 @@
             v-else
             @click='cancelPasswordChange'
           ) Cancelar
-    .container-change-password
-      .inputs.d-flex.justify-content-around.w-100.position-absolute(:class='{"inputs-down": !pass}')
+    .container-change-password(
+      v-if='$route.params.id === getUser.username'
+      :class='{"container-change-password-extend": showContainerInputPassword}'
+    )
+      .inputs.d-flex.justify-content-around.w-100.position-absolute(:class='{"inputs-down": !showInputPassword}')
         div.w-100.px-2
           label.info-tag.d-block.m-2 Contraseña actual
           input.info-value.w-100.px-3.py-2(
@@ -81,19 +112,59 @@
             type='password'
             v-model.trim='repeatNewPassword'
           )
-
       .container-messages-password
         p.bg-success.my-5.rounded.py-4.w-100.text-center(v-if='getMessageOfChangePassword.changePassword === "valid"') {{ getMessageOfChangePassword.message }}
         p.bg-danger.my-5.rounded.py-4.w-100.text-center.h-100(v-if='getMessageOfChangePassword.changePassword === "invalid"') {{ getMessageOfChangePassword.message }}
+    .d-flex.align-items-start
+      .posts
+        h3 Publicaciones
+        CardPost(:showMenu='showMenu')
+      FriendsLateral.friendsOfMyFriend(v-if='showFriends')
+        span(
+          v-if='$route.params.id === getUser.username'
+          slot='title'
+        ) Tu amigos
+        span(
+          v-else
+          slot='title'
+        ) Amigos de tu amigo
+        li.px-4(
+          slot='list-friends'
+          v-if='$route.params.id === getUser.username'
+          v-for='friend in getUser.friends'
+          @click='toProfileFriend(friend)'
+        )
+          .friend.d-flex.align-items-center
+            img.rounded-circle(:src='friend.avatar' width='42' height='42')
+            span.ml-2.pl-3.w-100.pb-2
+              p.mb-0.font-weight-bold {{ friend.username }}
+              small {{ friend.email }}
+        li.px-4(
+          slot='list-friends'
+          v-else
+          v-for='friend in profileFriend.friends'
+          @click='toProfileFriend(friend)'
+        )
+          .friend.d-flex.align-items-center
+            img.rounded-circle(:src='friend.avatar' width='42' height='42')
+            span.ml-2.pl-3.w-100.pb-2
+              p.mb-0.font-weight-bold {{ friend.username }}
+              small {{ friend.email }}
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import Spinner from './../../global/Spinner'
+import axios from 'axios'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
+import CardPost from './../home-components/Card-post'
+import FriendsLateral from './../home-components/Friends-lateral'
+// import Spinner from './../../global/Spinner'
 
 export default {
   components: {
-    Spinner
+    CardPost,
+    FriendsLateral
+    // Spinner
   },
   computed: {
     ...mapGetters([
@@ -113,8 +184,13 @@ export default {
   },
   data () {
     return {
+      showFriends: false,
+      showButtonAddMyFriends: false,
+      myFriends: [],
+      profileFriend: {},
       data: true,
-      pass: true,
+      showInputPassword: true,
+      showContainerInputPassword: false,
       registry: '',
       oldPassword: '',
       newPassword: '',
@@ -123,10 +199,14 @@ export default {
   },
   methods: {
     ...mapActions([
+      'addToMyFriend',
       'modifyData',
       'resetPassword'
     ]),
-    ...mapMutations(['SET_MESSAGE_OF_CHANGE_PASSWORD']),
+    ...mapMutations([
+      'SET_MESSAGE_OF_CHANGE_PASSWORD',
+      'TOGGLE_SPINNER'
+    ]),
     acceptDataChanges () {
       let newDataUser = {}
       let newUsername = this.$refs.newUsername.value
@@ -175,7 +255,7 @@ export default {
                 newPassword: this.newPassword
               })
 
-              this.pass = true
+              this.showInputPassword = true
               this.oldPassword = ''
               this.newPassword = ''
               this.repeatNewPassword = ''
@@ -195,24 +275,62 @@ export default {
         this.SET_MESSAGE_OF_CHANGE_PASSWORD({})
       }, 8000)
     },
+    addFriend () {
+      this.TOGGLE_SPINNER(true)
+      this.addToMyFriend({idFriend: this.profileFriend._id})
+    },
     cancelDataChange () {
       this.data = true
     },
     cancelPasswordChange () {
-      this.pass = true
+      this.showInputPassword = true
       this.oldPassword = ''
       this.newPassword = ''
       this.repeatNewPassword = ''
+      this.showContainerInputPassword = false
     },
     changeData () {
       this.data = false
     },
     changePassword () {
       this.SET_MESSAGE_OF_CHANGE_PASSWORD({})
-      this.pass = false
+      this.showInputPassword = false
+      this.showContainerInputPassword = true
     },
     dontShowPopovers () {
       this.$emit('dontShowPopovers')
+    },
+    getProfile () {
+      axios({
+        method: 'post',
+        baseURL: 'http://localhost:4000',
+        url: '/profile/:id',
+        headers: {
+          'ContentType': 'application/json',
+          token: window.localStorage.getItem('token')
+        },
+        data: this.$route.params
+      })
+        .then(res => {
+          let timer = setInterval(() => {
+            if (this.getUser) {
+              this.getUser.friends.forEach(friend => {
+                this.myFriends.push(friend.username)
+              })
+              if (this.myFriends.includes(this.$route.params.id) || this.getUser.username === this.$route.params.id) {
+                this.showButtonAddMyFriends = false
+              } else {
+                this.showButtonAddMyFriends = true
+              }
+              clearInterval(timer)
+            }
+          }, 100)
+          console.log(res.data._id)
+          if (res.data.friends.length > 0) {
+            this.showFriends = true
+          }
+          this.profileFriend = res.data
+        })
     },
     registered () {
       const registry = setInterval(() => {
@@ -222,9 +340,27 @@ export default {
           this.registry = this.getRegistry
         }
       }, 100)
+    },
+    toProfileFriend (friend) {
+      console.log(friend.username)
+      this.$router.push(`/profile/${friend.username}`)
     }
   },
-  name: 'Profile'
+  mounted () {
+    this.TOGGLE_SPINNER(false)
+    if (this.$route.params.id === this.getUser.username) {
+      this.showFriends = true
+    }
+
+    setTimeout(() => {
+      if (this.$route.params.id !== this.getUser.username) {
+        this.getProfile()
+      }
+    }, 300)
+  },
+  name: 'Profile',
+  props: ['showMenu']
+
 }
 </script>
 
@@ -263,17 +399,21 @@ export default {
   }
 }
 .container-change-password {
-  height: 150px;
+  height: 0;
   position: relative;
   overflow: hidden;
   margin: auto;
   width: 900px;
+  transition: height linear .2s;
+  &-extend {
+    height: 150px;
+  }
 }
 .btn {
   width: 200px;
 }
 .inputs {
-  top: -100%;
+  top: -100px;
   transition: top ease .3s;
   &-down {
     top: 20px;
@@ -282,5 +422,8 @@ export default {
     text-align: left;
     font-size: 1em;
   }
+}
+.friendsOfMyFriend {
+  margin-top: 40px;
 }
 </style>

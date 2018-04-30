@@ -13,9 +13,7 @@ export const REGISTER_SESSION = (state, payload) => {
 }
 
 export const TOGGLE_SPINNER = (state, payload) => {
-  setTimeout(() => {
-    state.showSppiner = payload
-  }, 200)
+  state.showSppiner = payload
 }
 
 export const DISBLOCK_BUTTON = (state, payload) => {
