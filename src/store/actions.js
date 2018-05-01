@@ -164,7 +164,7 @@ export const addToMyFriend = ({commit, state}, payload) => {
     .then(res => {
       console.log(res)
       commit('REGISTER_SESSION', res.data)
-      commit('TOGGLE_SPINNER', false)
+      // commit('TOGGLE_SPINNER', false)
     })
     .catch(err => {
       if (err) console.log('Por el momento no podemos procesar sus datos intente más tarde Gracias')
