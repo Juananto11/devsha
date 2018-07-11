@@ -5,7 +5,7 @@
     router-view
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Spinner from './components/global/Spinner'
 
 export default {
@@ -14,6 +14,17 @@ export default {
   },
   computed: {
     ...mapGetters(['showSppiner'])
+  },
+  methods: {
+    ...mapActions(['getUserToSession'])
+  },
+  mounted () {
+    let token = localStorage.getItem('token')
+    if (!token) {
+      this.$router.push('/login')
+    } else {
+      this.getUserToSession()
+    }
   },
   name: 'App'
 }

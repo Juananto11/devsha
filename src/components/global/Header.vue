@@ -42,6 +42,7 @@ import Notifications from './header-components/Notifications'
 import User from './header-components/User'
 
 export default {
+
   components: {
     Messages,
     Notifications,

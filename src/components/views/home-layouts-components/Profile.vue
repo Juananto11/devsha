@@ -140,23 +140,30 @@
                 button.friend-buttons-message.btn.btn-primary.btn-sm.d-flex.justify-content-center.align-items-center
                   .tip Enviar mensaje
                 button.friend-buttons-delete.btn.btn-danger.btn-sm.d-flex.justify-content-center.align-items-center X
-                  .tip.tip-eliminar Eliminar de mis amigos
+                  .tip.tip-delete Eliminar de mis amigos
       FriendsLateral.friendsOfMyFriend(
         v-if='showFriends && $route.params.id !== getUser.username'
       )
         span(
           slot='title'
         ) Amigos de tu amigo
-        li.px-4(
+        li.px-2(
           slot='list-friends'
           v-for='friend in profileFriend.friends'
           @click='toProfileFriend(friend)'
         )
           .friend.d-flex.align-items-center
             img.rounded-circle(:src='friend.avatar' width='42' height='42')
-            span.ml-2.pl-3.w-100.pb-2
-              p.mb-0.font-weight-bold {{ friend.username }}
-              small {{ friend.email }}
+            span.ml-2.pl-3.w-100.pb-2.d-flex.position-relative
+              .friend-info
+                p.mb-0.font-weight-bold {{ friend.username }}
+                small {{ friend.email }}
+              .friend-buttons.d-flex.align-items-center.justify-content-end.position-absolute
+                button.friend-buttons-delete.btn.btn-success.btn-sm.d-flex.justify-content-center.align-items-center(
+                  v-if='showButtonAddFriendOfMyFriend(friend._id)'
+                  @click.stop='addFriend(friend._id)'
+                ) +
+                  .tip.tip-add Agregar a mis amigos
 </template>
 
 <script>
@@ -284,14 +291,30 @@ export default {
     },
     addFriend () {
       this.TOGGLE_SPINNER(true)
-      this.addToMyFriend({idFriend: this.profileFriend._id})
-      const timer = setInterval(() => {
-        if (this.getUser.friends.includes(this.profileFriend._id)) {
-          this.showButtonAddMyFriends = false
-          this.TOGGLE_SPINNER(false)
-          clearInterval(timer)
-        }
-      }, 300)
+
+      if (arguments.length === 1) {
+        console.log('ok', arguments[0])
+        this.addToMyFriend({idFriend: arguments[0]})
+        const timer = setInterval(() => {
+          if (this.getUser.friends.includes(arguments[0])) {
+            this.showButtonAddMyFriends = false
+            this.TOGGLE_SPINNER(false)
+            clearInterval(timer)
+          }
+        }, 300)
+      } else {
+        this.addToMyFriend({idFriend: this.profileFriend._id})
+        const timer = setInterval(() => {
+          if (this.getUser.friends.includes(this.profileFriend._id)) {
+            this.showButtonAddMyFriends = false
+            this.TOGGLE_SPINNER(false)
+            clearInterval(timer)
+          }
+        }, 300)
+      }
+    },
+    addFriendOfMyFriend () {
+
     },
     cancelDataChange () {
       this.data = true
@@ -326,13 +349,8 @@ export default {
         data: this.$route.params
       })
         .then(res => {
-          // let idFriends = []
-
           let timer = setInterval(() => {
             if (this.getUser) {
-              // this.getUser.friends.forEach(friend => {
-              //   this.myFriends.push(friend.username)
-              // })
               if (this.myFriends.includes(this.$route.params.id) || this.getUser.username === this.$route.params.id) {
                 this.showButtonAddMyFriends = false
               } else {
@@ -342,12 +360,6 @@ export default {
             }
           }, 100)
           console.log(res.data._id)
-          // this.getUser.friends.forEach((friend) => {
-          //   idFriends.push(friend._id)
-          // })
-          // if (idFriends.includes(res.data._id) && res.data.friends.length > 0) {
-          //   this.showFriends = true
-          // }
           this.profileFriend = res.data
         })
     },
@@ -360,24 +372,39 @@ export default {
         }
       }, 100)
     },
+    showButtonAddFriendOfMyFriend (id) {
+      const myFriends = []
+      this.getUser.friends.forEach((friend) => {
+        myFriends.push(friend._id)
+      })
+
+      if (myFriends.includes(id)) {
+        return false
+      }
+      return true
+    },
     showContainerFriends () {
       let idFriends = []
 
       const timer = setInterval(() => {
-        if (this.getUser.friends < 0 && this.profileFriend) {
+        if (this.$route.params.id === this.getUser.username && this.getUser.friends.length > 0) {
+          this.showFriends = true
           this.getUser.friends.forEach(friend => {
             this.myFriends.push(friend.username)
           })
-          if (idFriends.includes(this.profileFriend._id) && this.profileFriend.friends.length > 0) {
+          clearInterval(timer)
+        } else if (this.$route.params.id !== this.getUser.username) {
+          if (this.profileFriend.friends.length > 0) {
             this.showFriends = true
-          }
-          console.log('kha'.this.getUser.friends)
-          if (this.$route.params.id === this.getUser.username) {
-            this.showFriends = true
+            this.profileFriend.friends.forEach((friend) => {
+              idFriends.push(friend._id)
+            })
           }
           clearInterval(timer)
+        } else {
+          clearInterval(timer)
         }
-      }, 100)
+      }, 500)
     },
     toProfileFriend (friend) {
       console.log(friend.username)
@@ -386,11 +413,16 @@ export default {
   },
   mounted () {
     this.TOGGLE_SPINNER(false)
-    this.showContainerFriends()
-    if (this.$route.params.id !== this.getUser.username) {
-      console.log('aaaaaa')
-      this.getProfile()
-    }
+
+    const timer = setInterval(() => {
+      if (this.getUser.username) {
+        if (this.$route.params.id !== this.getUser.username) {
+          this.getProfile()
+        }
+        this.showContainerFriends()
+        clearInterval(timer)
+      }
+    }, 100)
   },
   name: 'Profile',
   props: ['showMenu']
@@ -509,8 +541,11 @@ export default {
     border-bottom: 10.2px solid transparent;
     border-right: 12px solid transparent;
   }
-}
-.tip-eliminar {
-  left: -158px;
+  &-delete {
+    left: -158px;
+  }
+  &-add {
+    left: -152px;
+  }
 }
 </style>

@@ -9,23 +9,24 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "^4.0.0",
-    "vee-validate": "^2.0.6",
-    "vue": "^2.5.13",
+    "bootstrap": "^4.1.1",
+    "pug-plain-loader": "^1.0.0",
+    "vee-validate": "^2.0.8",
+    "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-beta.6",
-    "@vue/cli-plugin-eslint": "^3.0.0-beta.6",
-    "@vue/cli-service": "^3.0.0-beta.6",
-    "@vue/eslint-config-standard": "^3.0.0-beta.6",
-    "lint-staged": "^6.0.0",
-    "node-sass": "^4.7.2",
+    "@vue/cli-plugin-babel": "^3.0.0-beta.9",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.9",
+    "@vue/cli-service": "^3.0.0-beta.9",
+    "@vue/eslint-config-standard": "^3.0.0-beta.9",
+    "lint-staged": "^7.0.5",
+    "node-sass": "^4.9.0",
     "pug": "^2.0.3",
-    "pug-loader": "^2.3.0",
-    "sass-loader": "^6.0.6",
-    "vue-template-compiler": "^2.5.13"
+    "pug-loader": "^2.4.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.16"
   },
   "browserslist": [
     "> 1%",

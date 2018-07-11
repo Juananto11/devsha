@@ -10,11 +10,11 @@
           img.bo0rounded-circle.mr-3(src='' height='20' width='20')
           | Usuario
         ul.list-unstyled(slot='body')
-          li(@click='toProfile')
+          li(@click='towardSection(`/profile/${getUser.username}`)')
             a.d-flex.align-items-center
               span.mr-3.account
               p.m-0 Ver perfil
-          li(@click='closeSession')
+          li(@click='towardSection("/login")')
             a.d-flex.align-items-center
               span.mr-3.exit
               p.m-0 Cerrar Sesión
@@ -33,20 +33,17 @@ export default {
   },
   methods: {
     ...mapMutations(['DELETE_SESSION', 'TOGGLE_SPINNER']),
-    closeSession () {
-      console.log('close')
-      this.TOGGLE_SPINNER(true)
-      this.DELETE_SESSION()
-      setTimeout(() => {
-        this.$router.push('/login')
-      }, 500)
-    },
     toggleUser () {
       this.$emit('toggleUser')
     },
-    toProfile () {
+    towardSection (toward) {
       this.TOGGLE_SPINNER(true)
-      this.$router.push('/profile')
+      setTimeout(() => {
+        this.$router.push(toward)
+      }, 300)
+      if (toward === '/login') {
+        this.DELETE_SESSION()
+      }
     }
   },
   name: 'User',

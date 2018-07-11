@@ -14,7 +14,7 @@ export const registerUser = ({ commit }, payload) => {
     data: payload
   })
     .then(res => {
-      console.log(res.data.id)
+      // console.log(res.data.id)
       if (res.data.ok) {
         commit('REDIRECT', true)
         commit('TOGGLE_SPINNER', false)
@@ -130,7 +130,7 @@ export const resetPassword = ({ commit, state }, payload) => {
     })
 }
 
-// Connections to get users
+// Connection to get users
 export const getUserToSession = ({ commit, state }, payload) => {
   axios({
     method: 'get',
@@ -164,7 +164,6 @@ export const addToMyFriend = ({commit, state}, payload) => {
     .then(res => {
       console.log(res)
       commit('REGISTER_SESSION', res.data)
-      // commit('TOGGLE_SPINNER', false)
     })
     .catch(err => {
       if (err) console.log('Por el momento no podemos procesar sus datos intente más tarde Gracias')

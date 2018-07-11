@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 import Chat from './../global/Chat'
 import Header from './../global/Header'
 import Lateral from './../global/Lateral'
@@ -44,7 +44,6 @@ export default {
   },
   created () {
     this.TOGGLE_SPINNER()
-    this.getUserToSession()
   },
   data () {
     return {
@@ -56,7 +55,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getUserToSession']),
     ...mapMutations(['TOGGLE_SPINNER']),
     toggleMenu () {
       this.showMenu = !this.showMenu
